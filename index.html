@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMERIT - Virtual Human Integration</title>
+    <title>PMERIT - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --global-color: #2563EB;
             --local-color: #16A34A;
-            --primary-bg: #ffffff;
-            --secondary-bg: #f8fafc;
+            --primary-bg: #E0E7FF; /* Light blue-purple background */
+            --secondary-bg: #ffffff;
             --card-bg: #ffffff;
             --text-color: #1e293b;
             --border-color: #e2e8f0;
@@ -41,6 +41,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Make page non-scrollable like Google Home page */
         }
 
         /* Header Styles */
@@ -114,9 +115,10 @@
             display: flex;
             flex: 1;
             max-width: 1600px;
-            margin: 0 auto;
+            margin: 1rem auto;
             width: 100%;
             padding: 0 1rem;
+            height: calc(100vh - 80px); /* Adjust height for non-scrollable page */
         }
 
         .left-pane {
@@ -127,6 +129,8 @@
             flex-direction: column;
             gap: 1rem;
             border-right: 1px solid var(--border-color);
+            border-radius: 12px 0 0 12px;
+            height: 100%;
         }
 
         .center-pane {
@@ -136,6 +140,7 @@
             flex-direction: column;
             gap: 1.5rem;
             max-width: 800px;
+            background-color: var(--secondary-bg);
         }
 
         .right-pane {
@@ -143,6 +148,8 @@
             padding: 2rem 1.5rem;
             background-color: var(--secondary-bg);
             border-left: 1px solid var(--border-color);
+            border-radius: 0 12px 12px 0;
+            height: 100%;
         }
 
         /* Left Pane Styles */
@@ -299,8 +306,25 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            position: relative;
+            z-index: 1; /* Ensure chat is above other elements */
         }
-
+        
+        .chat-container::before {
+            content: "Empowering Learning Through Innovation..."; /* Add tagline here */
+            position: absolute;
+            top: 2rem; /* Position tagline */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+            opacity: 0.1;
+            white-space: nowrap; /* Prevent line breaks */
+            pointer-events: none; /* Make it unclickable */
+            z-index: 0; /* Keep it behind the chat content */
+        }
+        
         .chat-header {
             padding: 1.5rem;
             border-bottom: 1px solid var(--border-color);
@@ -308,6 +332,8 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            position: relative;
+            z-index: 10;
         }
 
         .virtual-human-container {
@@ -581,84 +607,17 @@
         .cta-btn:hover {
             background-color: #1d4ed8;
         }
-
-        /* Virtual Human Controls */
+        
         .human-controls {
-            background: var(--secondary-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            border: 1px solid var(--border-color);
-        }
-        
-        .human-controls h4 {
-            margin-bottom: 0.8rem;
-            color: var(--global-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .control-row {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 0.8rem;
-        }
-        
-        .human-select {
-            flex: 1;
-            padding: 0.6rem;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background: var(--primary-bg);
-            color: var(--text-color);
-        }
-        
-        .expression-controls {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .expression-btn {
-            padding: 0.5rem 0.8rem;
-            border-radius: 20px;
-            background: var(--primary-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .expression-btn:hover {
-            background: var(--global-color);
-            color: white;
-            border-color: var(--global-color);
-        }
-        
-        .expression-btn.active {
-            background: var(--global-color);
-            color: white;
-            border-color: var(--global-color);
-        }
-        
-        /* Animations */
-        @keyframes breathe {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes speak {
-            0% { height: 8px; }
-            50% { height: 4px; }
-            100% { height: 8px; }
+            display: none; /* Hide for now */
         }
 
         /* Mobile Responsiveness */
         @media (max-width: 1100px) {
             .main-container {
                 flex-direction: column;
+                height: auto;
+                overflow: auto; /* Allow scrolling on smaller devices */
             }
             
             .left-pane, .right-pane {
@@ -672,6 +631,7 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 gap: 0.5rem;
+                border-radius: 12px 12px 0 0;
             }
             
             .left-pane > div {
@@ -679,16 +639,19 @@
                 min-width: 200px;
             }
             
-            .avatar-container {
+            .avatar-container, .human-controls {
                 display: none;
             }
             
             .center-pane {
                 order: 2;
+                border-radius: 0;
             }
             
             .right-pane {
                 order: 3;
+                display: none; /* Hide by default on mobile */
+                border-radius: 0 0 12px 12px;
             }
             
             .card-container {
@@ -741,12 +704,10 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="logo">P<span>MERIT</span></div>
         <nav>
-            <a href="#" id="donate-link">Donate</a>
-            <select id="language-selector">
+            <a href="#" id="donate-link">Pricing</a> <select id="language-selector">
                 <option value="en">English</option>
                 <option value="es">Español</option>
                 <option value="fr">Français</option>
@@ -759,9 +720,7 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <div class="main-container">
-        <!-- Left Pane -->
         <aside class="left-pane">
             <div>
                 <div class="pane-header">Quick Actions</div>
@@ -773,7 +732,7 @@
                 </button>
                 <button class="action-btn" id="explore-paths-btn">
                     <i class="fas fa-compass"></i>
-                    <span>Explore Paths</span>
+                    <span>Career Track & Explore Learning Paths</span>
                 </button>
                 <button class="toggle-btn" id="customer-service-toggle">
                     <div>
@@ -810,28 +769,8 @@
                     <i class="fas fa-user"></i>
                 </div>
             </div>
-            
-            <div class="human-controls">
-                <h4><i class="fas fa-cog"></i> Virtual Human Settings</h4>
-                <div class="control-row">
-                    <select class="human-select" id="human-select">
-                        <option value="1">EduGuide Alex</option>
-                        <option value="2">Mentor Maya</option>
-                        <option value="3">Professor Sam</option>
-                    </select>
-                </div>
-                <div class="control-row">
-                    <div class="expression-controls">
-                        <button class="expression-btn active" data-expression="neutral">Neutral</button>
-                        <button class="expression-btn" data-expression="happy">Happy</button>
-                        <button class="expression-btn" data-expression="serious">Serious</button>
-                        <button class="expression-btn" data-expression="thoughtful">Thoughtful</button>
-                    </div>
-                </div>
-            </div>
         </aside>
 
-        <!-- Center Pane -->
         <main class="center-pane">
             <div class="chat-container">
                 <div class="chat-header">
@@ -847,8 +786,8 @@
                         </div>
                     </div>
                     <div>
-                        <h2><i class="fas fa-robot"></i> PMERIT AI - EduGuide Alex</h2>
-                        <p>Your virtual learning assistant. Accessible, high-quality education for global opportunities.</p>
+                        <h2><i class="fas fa-robot"></i> PMERIT AI</h2>
+                        <p>Empowering Learning Through Innovation...</p>
                         <div class="indicators">
                             <div class="badge active" id="virtual-human-indicator">
                                 <i class="fas fa-user"></i> Virtual Human
@@ -863,11 +802,11 @@
                 <div class="chat-messages">
                     <div class="ai-message">
                         <div class="ai-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
                             <h3>Welcome to PMERIT!</h3>
-                            <p>I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.</p>
+                            <p>I'm your virtual learning assistant. I'm here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.</p>
                             <p>I can help you with:</p>
                             <ul>
                                 <li>Course recommendations based on your interests</li>
@@ -881,7 +820,7 @@
                     
                     <div class="ai-message">
                         <div class="ai-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
                             <h3>Getting Started</h3>
@@ -897,16 +836,15 @@
                 </div>
                 
                 <div class="chat-input">
-                    <textarea id="chat-input" placeholder="Ask about courses, learning paths, or your goals...">I'm interested in remote careers. What skills should I focus on?</textarea>
+                    <textarea id="chat-input" placeholder="Ask about courses, learning paths, or your goals..."></textarea>
                     <div class="input-footer">
-                        <div class="char-counter">43/500</div>
+                        <div class="char-counter">0/500</div>
                         <button class="send-btn">Send <i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
             </div>
         </main>
 
-        <!-- Right Pane -->
         <aside class="right-pane">
             <h3>Discover Your Path</h3>
             <div class="card">
@@ -923,18 +861,6 @@
                 <h4><i class="fas fa-chart-line"></i> Skills Assessment</h4>
                 <p>Assess your current abilities and identify growth opportunities to advance your career.</p>
                 <button class="cta-btn">Evaluate Skills</button>
-            </div>
-            
-            <div class="card">
-                <h4><i class="fas fa-comments"></i> Virtual Human Features</h4>
-                <p>Our AI-powered virtual humans provide:</p>
-                <ul>
-                    <li>Personalized learning guidance</li>
-                    <li>24/7 educational support</li>
-                    <li>Emotionally responsive interactions</li>
-                    <li>Multilingual capabilities</li>
-                </ul>
-                <button class="cta-btn">Learn More</button>
             </div>
         </aside>
     </div>
@@ -953,22 +879,28 @@
         const customerServiceIndicator = document.getElementById('customer-service-indicator');
         const signinBtn = document.getElementById('signin-btn');
         const startLearningBtn = document.getElementById('start-learning-btn');
-        const humanSelect = document.getElementById('human-select');
-        const expressionButtons = document.querySelectorAll('.expression-btn');
-        const mouthElement = document.querySelector('.mouth');
-        const sendBtn = document.querySelector('.send-btn');
+        const donateLink = document.getElementById('donate-link');
         const chatHeaderTitle = document.querySelector('.chat-header h2');
+        const chatHeaderTagline = document.querySelector('.chat-header p');
+        const chatMessages = document.querySelector('.chat-messages');
 
         // State Management
-        let isAuthenticated = false;
+        let isAuthenticated = false; // Simulated authentication state
         let darkMode = localStorage.getItem('darkMode') === 'true';
         let virtualHumanMode = true;
         let customerServiceMode = false;
-        let ttsEnabled = true;
-        let currentExpression = 'neutral';
-        let currentHuman = 'EduGuide Alex';
-        let isSpeaking = false;
-        let lipSyncInterval;
+        let ttsEnabled = localStorage.getItem('ttsEnabled') === 'true';
+
+        // Career Track data for MVP
+        const careerTracks = [
+            "Software Development (Full-stack)",
+            "Data Analytics",
+            "UI/UX Design",
+            "Digital Marketing",
+            "Customer Support (Remote)",
+            "Virtual Assistance / Operations",
+            "Cloud & DevOps (Intro)"
+        ];
 
         // Initialize UI based on saved state
         function initUI() {
@@ -979,14 +911,40 @@
             }
             
             // Set initial states for toggles
-            virtualHumanToggle.classList.add('active');
-            ttsToggle.classList.add('active');
+            if (virtualHumanMode) {
+                virtualHumanToggle.classList.add('active');
+                virtualHumanIndicator.style.display = 'inline-flex';
+            } else {
+                virtualHumanToggle.classList.remove('active');
+                virtualHumanIndicator.style.display = 'none';
+            }
+
+            if (ttsEnabled) {
+                ttsToggle.classList.add('active');
+            } else {
+                ttsToggle.classList.remove('active');
+            }
             
             // Set up character counter
             updateCharCounter();
+
+            // Check authentication status to configure UI
+            updateAuthUI(isAuthenticated);
             
-            // Initialize virtual human animation
-            animateVirtualHuman();
+            // Update pricing link to donate link
+            donateLink.textContent = "Donate";
+        }
+
+        // Update UI based on authentication status
+        function updateAuthUI(isAuth) {
+            if (isAuth) {
+                dashboardBtn.classList.remove('guest');
+                dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
+                // Hide other guest-only elements if needed (not in current requirements)
+            } else {
+                dashboardBtn.classList.add('guest');
+                dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
+            }
         }
 
         // Update character counter
@@ -995,140 +953,64 @@
         }
 
         // Toggle modes
-        function toggleMode(btn, mode, indicator, modeName) {
-            btn.classList.toggle('active');
-            const isActive = btn.classList.contains('active');
+        function toggleMode(btn, mode, indicator) {
+            const isActive = !btn.classList.contains('active');
+            
+            if (isActive) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
             
             if (indicator) {
-                indicator.style.display = isActive ? 'inline-block' : 'none';
+                indicator.style.display = isActive ? 'inline-flex' : 'none';
             }
             
-            // Special handling for customer service mode
-            if (mode === 'customerService') {
-                if (isActive) {
-                    chatHeaderTitle.innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
-                    document.querySelector('.ai-message p').textContent = 'How can I assist you today? Please describe your issue or question.';
-                } else {
-                    chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI';
-                    document.querySelector('.ai-message p').textContent = 'I\'m here to guide your learning journey. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities. How can I help you discover your potential today?';
-                }
-            }
-            
-            // Update state variable
-            if (mode === 'darkMode') darkMode = isActive;
-            if (mode === 'virtualHuman') virtualHumanMode = isActive;
-            if (mode === 'customerService') customerServiceMode = isActive;
-            if (mode === 'tts') ttsEnabled = isActive;
-            
-            // Save to localStorage
+            // Update state variable and save to localStorage
             if (mode === 'darkMode') {
+                darkMode = isActive;
                 localStorage.setItem('darkMode', isActive);
                 document.body.classList.toggle('dark-mode', isActive);
+            }
+            if (mode === 'virtualHuman') {
+                virtualHumanMode = isActive;
+            }
+            if (mode === 'customerService') {
+                customerServiceMode = isActive;
+                if (isActive) {
+                    chatHeaderTitle.innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
+                    // Update placeholder text
+                    chatInput.placeholder = "How can I assist you today? Please describe your issue or question.";
+                } else {
+                    chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI';
+                    chatInput.placeholder = "Ask about courses, learning paths, or your goals...";
+                }
+            }
+            if (mode === 'tts') {
+                ttsEnabled = isActive;
+                localStorage.setItem('ttsEnabled', isActive);
             }
         }
 
         // Dashboard button behavior
         function handleDashboardClick() {
             if (isAuthenticated) {
-                alert('Redirecting to Dashboard...');
-                // window.location.href = 'dashboard.html';
+                // For a real application, this would redirect
+                alert('Redirecting to dashboard.html');
             } else {
+                // For a real application, this would show a modal or redirect
                 alert('Please sign up to access your dashboard!');
-                // Show sign up modal
             }
         }
-
-        // Change expression
-        function setExpression(expression) {
-            currentExpression = expression;
-            
-            // Update UI
-            expressionButtons.forEach(btn => {
-                if (btn.dataset.expression === expression) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Change mouth shape based on expression
-            switch(expression) {
-                case 'happy':
-                    mouthElement.style.height = '12px';
-                    mouthElement.style.borderRadius = '10px 10px 20px 20px';
-                    break;
-                case 'serious':
-                    mouthElement.style.height = '4px';
-                    mouthElement.style.borderRadius = '0';
-                    break;
-                case 'thoughtful':
-                    mouthElement.style.height = '6px';
-                    mouthElement.style.borderRadius = '10px';
-                    break;
-                default: // neutral
-                    mouthElement.style.height = '8px';
-                    mouthElement.style.borderRadius = '0 0 10px 10px';
-            }
-        }
-
-        // Change virtual human
-        function changeVirtualHuman(name) {
-            currentHuman = name;
-            document.querySelector('.chat-header h2').innerHTML = `<i class="fas fa-robot"></i> PMERIT AI - ${name}`;
-        }
-
-        // Animate virtual human
-        function animateVirtualHuman() {
-            // Start subtle breathing animation
-            const human = document.querySelector('.virtual-human');
-            let scale = 1;
-            let direction = -0.001;
-            
-            setInterval(() => {
-                scale += direction;
-                if (scale > 1.005) direction = -0.001;
-                if (scale < 0.995) direction = 0.001;
-                human.style.transform = `scale(${scale})`;
-            }, 50);
-        }
-
-        // Simulate speaking animation
-        function startSpeaking() {
-            if (isSpeaking) return;
-            
-            isSpeaking = true;
-            mouthElement.style.animation = 'speak 0.3s infinite';
-        }
-
-        // Stop speaking animation
-        function stopSpeaking() {
-            isSpeaking = false;
-            mouthElement.style.animation = 'none';
-            setExpression(currentExpression);
-        }
-
+        
         // Text-to-Speech functionality
         function speakText(text) {
             if ('speechSynthesis' in window && ttsEnabled) {
                 const utterance = new SpeechSynthesisUtterance(text);
-                
-                // Set voice properties
-                utterance.rate = 0.9;
-                utterance.pitch = 1;
-                utterance.volume = 1;
-                
-                // Start animation
-                startSpeaking();
-                
-                utterance.onstart = () => {
-                    // Additional animation could go here
-                };
-                
-                utterance.onend = () => {
-                    stopSpeaking();
-                };
-                
                 speechSynthesis.speak(utterance);
+            } else if (!('speechSynthesis' in window)) {
+                console.log('Web Speech API is not supported in this browser.');
+                // Placeholder message for unsupported browsers
             }
         }
 
@@ -1141,11 +1023,12 @@
         dashboardBtn.addEventListener('click', handleDashboardClick);
         
         explorePathsBtn.addEventListener('click', () => {
-            alert('Explore Paths modal would open here');
+            // Placeholder for opening a modal with career tracks
+            alert(`Career tracks available (MVP): ${careerTracks.join(', ')}`);
         });
         
         chatInput.addEventListener('input', updateCharCounter);
-        
+
         signinBtn.addEventListener('click', () => {
             alert('Sign In functionality would open here');
         });
@@ -1153,60 +1036,53 @@
         startLearningBtn.addEventListener('click', () => {
             alert('Starting learning journey...');
         });
-        
-        // Expression buttons
-        expressionButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                setExpression(btn.dataset.expression);
-            });
-        });
-        
-        // Human selection
-        humanSelect.addEventListener('change', () => {
-            const humanName = humanSelect.options[humanSelect.selectedIndex].text;
-            changeVirtualHuman(humanName);
-        });
-        
-        // Send button
+
+        // Add event listener for the "Send" button
+        const sendBtn = document.querySelector('.send-btn');
         sendBtn.addEventListener('click', () => {
             if (chatInput.value.trim() !== '') {
-                // Simulate AI response
-                speakText("Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.");
+                // Simulate sending a message and getting a response
+                const userMessageText = chatInput.value;
                 
-                // Add user message to chat
-                const chatMessages = document.querySelector('.chat-messages');
-                const userMessage = document.createElement('div');
-                userMessage.className = 'ai-message';
-                userMessage.innerHTML = `
+                // Append user message to chat window
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'ai-message';
+                userMessageDiv.innerHTML = `
                     <div class="ai-avatar" style="background: #4f46e5;">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="ai-message-content">
                         <h3>You</h3>
-                        <p>${chatInput.value}</p>
+                        <p>${userMessageText}</p>
                     </div>
                 `;
-                chatMessages.appendChild(userMessage);
-                
-                // Add AI response to chat
+                chatMessages.appendChild(userMessageDiv);
+
+                // Simulate AI response
                 setTimeout(() => {
-                    const aiResponse = document.createElement('div');
-                    aiResponse.className = 'ai-message';
-                    aiResponse.innerHTML = `
+                    const aiResponseText = "Thank you for your message. I am currently in a demo state. This is where a personalized response would appear based on your query.";
+                    
+                    const aiMessageDiv = document.createElement('div');
+                    aiMessageDiv.className = 'ai-message';
+                    aiMessageDiv.innerHTML = `
                         <div class="ai-avatar">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
-                            <h3>${currentHuman}</h3>
-                            <p>Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.</p>
-                            <p>Would you like me to suggest specific courses or learning paths in any of these areas?</p>
+                            <h3>PMERIT AI</h3>
+                            <p>${aiResponseText}</p>
                         </div>
                     `;
-                    chatMessages.appendChild(aiResponse);
+                    chatMessages.appendChild(aiMessageDiv);
+                    
+                    // Read the AI response aloud
+                    speakText(aiResponseText);
+                    
+                    // Scroll to the bottom of the chat window
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 }, 1000);
                 
-                // Clear input
+                // Clear the input field and reset the counter
                 chatInput.value = '';
                 updateCharCounter();
             }
@@ -1214,11 +1090,6 @@
 
         // Initialize the UI
         initUI();
-
-        // Demo speaking animation
-        setTimeout(() => {
-            speakText("Welcome to PMERIT! I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support.");
-        }, 1000);
     </script>
 </body>
 </html>
