@@ -1,91 +1,65 @@
-<div class="container">
-  <!-- Header -->
-  <header>
-    <div class="logo">PMERIT</div>
-    <nav>
-      <a href="#" id="donate-link">Donate</a>
-      <select id="language-selector">...</select>
-      <button id="signin-btn">Sign In</button>
-      <button id="start-learning-btn">Start Learning</button>
-    </nav>
-  </header>
-
-  <!-- Main Content - 3 Column Layout -->
-  <div class="main-content">
-    <!-- Left Pane - Quick Actions -->
-    <aside class="left-pane">
-      <button id="virtual-human-toggle" class="toggle-btn">
-        Virtual Human: OFF
-      </button>
-      
-      <button id="career-track-btn">
-        Career Track
-      </button>
-      
-      <button id="customer-service-toggle" class="toggle-btn">
-        Customer Service: OFF
-      </button>
-      
-      <div class="settings">
-        <button id="dark-mode-toggle">Dark Mode: OFF</button>
-        <button id="tts-toggle">Text-to-Speech: OFF</button>
-      </div>
-      
-      <div id="dashboard-container">
-        <button id="dashboard-btn">Dashboard</button>
-      </div>
-      
-      <div id="avatar-container" style="display:none;">
-        <!-- Virtual human avatar appears here when toggled -->
-      </div>
-    </aside>
-
-    <!-- Center Pane - AI Chat -->
-    <main class="center-pane">
-      <div class="chat-header">
-        <h2>PMERIT AI</h2>
-        <p>Empowering Learning Through Innovation<br>
-        Accessible, high-quality education for global opportunities</p>
-        <div class="indicators">
-          <span id="virtual-human-indicator" class="badge">Virtual Human</span>
-          <span id="customer-service-indicator" class="badge">Support Assistant</span>
-        </div>
-      </div>
-      
-      <div class="chat-messages">
-        <div class="ai-message">
-          Welcome to PMERIT! I'm here to guide your learning journey...
-        </div>
-      </div>
-      
-      <div class="chat-input">
-        <textarea placeholder="Ask about courses, learning paths, or your goals..." maxlength="500"></textarea>
-        <div class="input-footer">
-          <span class="char-counter">0/500</span>
-          <button class="send-btn">Send</button>
-        </div>
-      </div>
-    </main>
-
-    <!-- Right Pane - Assessments -->
-    <aside class="right-pane">
-      <h3>Discover Your Path</h3>
-      <div class="card">
-        <h4>Learning Style Assessment</h4>
-        <p>Discover how you learn best...</p>
-        <button class="cta-btn">Start Assessment</button>
-      </div>
-      <!-- Repeat for Interest Profiler & Skills Assessment -->
-    </aside>
-  </div>
-</div>
-
-<!-- Career Tracks Modal -->
-<div id="career-tracks-modal" class="modal">
-  <div class="modal-content">
-    <h3>Choose Your Career Path</h3>
-    <div class="tracks-grid">
-      <!-- Filled dynamically from JSON -->
+<div class="paths-modal">
+  <h2>Choose Your Learning Journey</h2>
+  
+  <!-- Global Remote Career Path -->
+  <div class="path-card global-path">
+    <div class="path-header">
+      <span class="badge primary">PRIMARY OFFERING</span>
+      <h3>Global Remote Career</h3>
     </div>
+    <p>Learn in-demand skills for remote jobs worldwide</p>
+    <div class="tracks-container">
+      <h4>Career Tracks:</h4>
+      <div class="tracks-grid">
+        <!-- Dynamically populated from JSON -->
+        <div class="track">Software Development</div>
+        <div class="track">Data Analytics</div>
+        <div class="track">UI/UX Design</div>
+        <!-- ... other tracks ... -->
+      </div>
+    </div>
+    <button class="select-btn">Explore Global Careers →</button>
+  </div>
+
+  <!-- Local Education Path -->
+  <div class="path-card local-path">
+    <div class="path-header">
+      <span class="badge secondary">COMMUNITY OFFERING</span>
+      <h3>Local Education & Careers</h3>
+    </div>
+    <p>Education from nursery to college tailored to your community</p>
+    
+    <div class="education-levels">
+      <h4>Education Pathways:</h4>
+      <div class="levels-grid">
+        <div class="level">
+          <div class="icon">👶</div>
+          <span>Nursery & Preschool</span>
+        </div>
+        <div class="level">
+          <div class="icon">🎒</div>
+          <span>Primary School</span>
+        </div>
+        <div class="level">
+          <div class="icon">📚</div>
+          <span>Secondary School</span>
+        </div>
+        <div class="level">
+          <div class="icon">🎓</div>
+          <span>College & University</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="local-careers">
+      <h4>Local Career Tracks:</h4>
+      <div class="tracks-grid">
+        <div class="track">Agriculture</div>
+        <div class="track">Local Manufacturing</div>
+        <div class="track">Community Services</div>
+        <!-- ... other local tracks ... -->
+      </div>
+    </div>
+    <button class="select-btn">Explore Local Education →</button>
   </div>
 </div>
