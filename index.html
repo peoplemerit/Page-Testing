@@ -1,0 +1,91 @@
+<div class="container">
+  <!-- Header -->
+  <header>
+    <div class="logo">PMERIT</div>
+    <nav>
+      <a href="#" id="donate-link">Donate</a>
+      <select id="language-selector">...</select>
+      <button id="signin-btn">Sign In</button>
+      <button id="start-learning-btn">Start Learning</button>
+    </nav>
+  </header>
+
+  <!-- Main Content - 3 Column Layout -->
+  <div class="main-content">
+    <!-- Left Pane - Quick Actions -->
+    <aside class="left-pane">
+      <button id="virtual-human-toggle" class="toggle-btn">
+        Virtual Human: OFF
+      </button>
+      
+      <button id="career-track-btn">
+        Career Track
+      </button>
+      
+      <button id="customer-service-toggle" class="toggle-btn">
+        Customer Service: OFF
+      </button>
+      
+      <div class="settings">
+        <button id="dark-mode-toggle">Dark Mode: OFF</button>
+        <button id="tts-toggle">Text-to-Speech: OFF</button>
+      </div>
+      
+      <div id="dashboard-container">
+        <button id="dashboard-btn">Dashboard</button>
+      </div>
+      
+      <div id="avatar-container" style="display:none;">
+        <!-- Virtual human avatar appears here when toggled -->
+      </div>
+    </aside>
+
+    <!-- Center Pane - AI Chat -->
+    <main class="center-pane">
+      <div class="chat-header">
+        <h2>PMERIT AI</h2>
+        <p>Empowering Learning Through Innovation<br>
+        Accessible, high-quality education for global opportunities</p>
+        <div class="indicators">
+          <span id="virtual-human-indicator" class="badge">Virtual Human</span>
+          <span id="customer-service-indicator" class="badge">Support Assistant</span>
+        </div>
+      </div>
+      
+      <div class="chat-messages">
+        <div class="ai-message">
+          Welcome to PMERIT! I'm here to guide your learning journey...
+        </div>
+      </div>
+      
+      <div class="chat-input">
+        <textarea placeholder="Ask about courses, learning paths, or your goals..." maxlength="500"></textarea>
+        <div class="input-footer">
+          <span class="char-counter">0/500</span>
+          <button class="send-btn">Send</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Pane - Assessments -->
+    <aside class="right-pane">
+      <h3>Discover Your Path</h3>
+      <div class="card">
+        <h4>Learning Style Assessment</h4>
+        <p>Discover how you learn best...</p>
+        <button class="cta-btn">Start Assessment</button>
+      </div>
+      <!-- Repeat for Interest Profiler & Skills Assessment -->
+    </aside>
+  </div>
+</div>
+
+<!-- Career Tracks Modal -->
+<div id="career-tracks-modal" class="modal">
+  <div class="modal-content">
+    <h3>Choose Your Career Path</h3>
+    <div class="tracks-grid">
+      <!-- Filled dynamically from JSON -->
+    </div>
+  </div>
+</div>
