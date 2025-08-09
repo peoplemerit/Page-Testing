@@ -1,65 +1,1224 @@
-<div class="paths-modal">
-  <h2>Choose Your Learning Journey</h2>
-  
-  <!-- Global Remote Career Path -->
-  <div class="path-card global-path">
-    <div class="path-header">
-      <span class="badge primary">PRIMARY OFFERING</span>
-      <h3>Global Remote Career</h3>
-    </div>
-    <p>Learn in-demand skills for remote jobs worldwide</p>
-    <div class="tracks-container">
-      <h4>Career Tracks:</h4>
-      <div class="tracks-grid">
-        <!-- Dynamically populated from JSON -->
-        <div class="track">Software Development</div>
-        <div class="track">Data Analytics</div>
-        <div class="track">UI/UX Design</div>
-        <!-- ... other tracks ... -->
-      </div>
-    </div>
-    <button class="select-btn">Explore Global Careers →</button>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMERIT - Virtual Human Integration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --global-color: #2563EB;
+            --local-color: #16A34A;
+            --primary-bg: #ffffff;
+            --secondary-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+        }
 
-  <!-- Local Education Path -->
-  <div class="path-card local-path">
-    <div class="path-header">
-      <span class="badge secondary">COMMUNITY OFFERING</span>
-      <h3>Local Education & Careers</h3>
-    </div>
-    <p>Education from nursery to college tailored to your community</p>
-    
-    <div class="education-levels">
-      <h4>Education Pathways:</h4>
-      <div class="levels-grid">
-        <div class="level">
-          <div class="icon">👶</div>
-          <span>Nursery & Preschool</span>
-        </div>
-        <div class="level">
-          <div class="icon">🎒</div>
-          <span>Primary School</span>
-        </div>
-        <div class="level">
-          <div class="icon">📚</div>
-          <span>Secondary School</span>
-        </div>
-        <div class="level">
-          <div class="icon">🎓</div>
-          <span>College & University</span>
-        </div>
-      </div>
+        .dark-mode {
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --border-color: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--secondary-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--global-color);
+        }
+
+        .logo span {
+            color: var(--local-color);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a, nav button {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav button:hover {
+            color: var(--global-color);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .signin-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+        }
+
+        .start-btn {
+            background-color: var(--global-color);
+            color: white;
+            border: none;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            flex: 1;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        .left-pane {
+            width: 260px;
+            background-color: var(--secondary-bg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .center-pane {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+        }
+
+        .right-pane {
+            width: 320px;
+            padding: 2rem 1.5rem;
+            background-color: var(--secondary-bg);
+            border-left: 1px solid var(--border-color);
+        }
+
+        /* Left Pane Styles */
+        .pane-header {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--global-color);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            text-align: left;
+        }
+
+        .action-btn:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            border-color: var(--global-color);
+        }
+
+        .action-btn i {
+            font-size: 1.2rem;
+            color: var(--global-color);
+        }
+
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .toggle-btn.active {
+            background-color: rgba(37, 99, 235, 0.1);
+            border-color: var(--global-color);
+            color: var(--global-color);
+        }
+
+        .toggle-btn.active i {
+            color: var(--global-color);
+        }
+
+        .toggle-indicator {
+            width: 40px;
+            height: 22px;
+            background-color: #cbd5e1;
+            border-radius: 11px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .toggle-indicator::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: white;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition);
+        }
+
+        .active .toggle-indicator {
+            background-color: var(--global-color);
+        }
+
+        .active .toggle-indicator::after {
+            left: calc(100% - 20px);
+        }
+
+        .dashboard-btn {
+            background-color: var(--global-color);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .dashboard-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .dashboard-btn.guest {
+            background-color: #64748b;
+            position: relative;
+        }
+
+        .dashboard-btn.guest::after {
+            content: "(Sign Up Required)";
+            position: absolute;
+            bottom: -22px;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: #94a3b8;
+            width: 100%;
+            text-align: center;
+            left: 0;
+        }
+
+        .avatar-container {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--global-color), var(--local-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            border: 3px solid var(--border-color);
+        }
+
+        /* Center Pane Styles */
+        .chat-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .virtual-human-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #e2e8f0;
+            border: 2px solid var(--global-color);
+            flex-shrink: 0;
+        }
+
+        .virtual-human {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: breathe 3s infinite ease-in-out;
+        }
+
+        .face {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .eye {
+            width: 12px;
+            height: 12px;
+            background: #1e293b;
+            border-radius: 50%;
+        }
+
+        .mouth {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 10px;
+            background: #1e293b;
+            border-radius: 0 0 15px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--global-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .indicators {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .badge {
+            background-color: var(--global-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .badge.local {
+            background-color: var(--local-color);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .ai-message {
+            background-color: rgba(37, 99, 235, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .ai-avatar {
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--global-color), var(--local-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .ai-message-content {
+            flex: 1;
+        }
+
+        .ai-message h3 {
+            margin-bottom: 0.5rem;
+            color: var(--global-color);
+        }
+
+        .ai-message p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .ai-message ul, .ai-message ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .ai-message li {
+            margin-bottom: 0.5rem;
+        }
+
+        .chat-input {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            resize: none;
+            min-height: 100px;
+            font-size: 1rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--global-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .input-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .char-counter {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .send-btn {
+            background-color: var(--global-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .send-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Right Pane Styles */
+        .right-pane h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--text-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .right-pane h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--global-color);
+            border-radius: 3px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--global-color);
+            transition: var(--transition);
+        }
+
+        .card:nth-child(2) {
+            border-left-color: var(--local-color);
+        }
+
+        .card:nth-child(3) {
+            border-left-color: #8b5cf6;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h4 i {
+            color: var(--global-color);
+        }
+
+        .card p {
+            color: var(--text-color);
+            opacity: 0.9;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .cta-btn {
+            background-color: var(--global-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .cta-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Virtual Human Controls */
+        .human-controls {
+            background: var(--secondary-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .human-controls h4 {
+            margin-bottom: 0.8rem;
+            color: var(--global-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .control-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .human-select {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--primary-bg);
+            color: var(--text-color);
+        }
+        
+        .expression-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .expression-btn {
+            padding: 0.5rem 0.8rem;
+            border-radius: 20px;
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .expression-btn:hover {
+            background: var(--global-color);
+            color: white;
+            border-color: var(--global-color);
+        }
+        
+        .expression-btn.active {
+            background: var(--global-color);
+            color: white;
+            border-color: var(--global-color);
+        }
+        
+        /* Animations */
+        @keyframes breathe {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes speak {
+            0% { height: 8px; }
+            50% { height: 4px; }
+            100% { height: 8px; }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1100px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-pane, .right-pane {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .left-pane {
+                order: 1;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .left-pane > div {
+                flex: 1;
+                min-width: 200px;
+            }
+            
+            .avatar-container {
+                display: none;
+            }
+            
+            .center-pane {
+                order: 2;
+            }
+            
+            .right-pane {
+                order: 3;
+            }
+            
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .card {
+                flex: 1;
+                min-width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .left-pane {
+                padding: 1rem;
+            }
+            
+            .center-pane, .right-pane {
+                padding: 1.5rem;
+            }
+            
+            .control-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .virtual-human-container {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">P<span>MERIT</span></div>
+        <nav>
+            <a href="#" id="donate-link">Donate</a>
+            <select id="language-selector">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+            </select>
+            <div class="nav-buttons">
+                <button class="nav-btn signin-btn" id="signin-btn">Sign In</button>
+                <button class="nav-btn start-btn" id="start-learning-btn">Start Learning</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Pane -->
+        <aside class="left-pane">
+            <div>
+                <div class="pane-header">Quick Actions</div>
+                <button class="toggle-btn active" id="virtual-human-toggle">
+                    <div>
+                        <i class="fas fa-user"></i> Virtual Human Mode
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+                <button class="action-btn" id="explore-paths-btn">
+                    <i class="fas fa-compass"></i>
+                    <span>Explore Paths</span>
+                </button>
+                <button class="toggle-btn" id="customer-service-toggle">
+                    <div>
+                        <i class="fas fa-headset"></i> Customer Service Mode
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+            </div>
+            
+            <div>
+                <div class="pane-header">Settings</div>
+                <button class="toggle-btn" id="dark-mode-toggle">
+                    <div>
+                        <i class="fas fa-moon"></i> Dark Mode
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+                <button class="toggle-btn active" id="tts-toggle">
+                    <div>
+                        <i class="fas fa-volume-up"></i> Text-to-Speech
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+            </div>
+            
+            <div>
+                <button class="dashboard-btn guest" id="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+            </div>
+            
+            <div class="avatar-container">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            
+            <div class="human-controls">
+                <h4><i class="fas fa-cog"></i> Virtual Human Settings</h4>
+                <div class="control-row">
+                    <select class="human-select" id="human-select">
+                        <option value="1">EduGuide Alex</option>
+                        <option value="2">Mentor Maya</option>
+                        <option value="3">Professor Sam</option>
+                    </select>
+                </div>
+                <div class="control-row">
+                    <div class="expression-controls">
+                        <button class="expression-btn active" data-expression="neutral">Neutral</button>
+                        <button class="expression-btn" data-expression="happy">Happy</button>
+                        <button class="expression-btn" data-expression="serious">Serious</button>
+                        <button class="expression-btn" data-expression="thoughtful">Thoughtful</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center Pane -->
+        <main class="center-pane">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="virtual-human-container">
+                        <div class="virtual-human">
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye"></div>
+                                    <div class="eye"></div>
+                                </div>
+                                <div class="mouth"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2><i class="fas fa-robot"></i> PMERIT AI - EduGuide Alex</h2>
+                        <p>Your virtual learning assistant. Accessible, high-quality education for global opportunities.</p>
+                        <div class="indicators">
+                            <div class="badge active" id="virtual-human-indicator">
+                                <i class="fas fa-user"></i> Virtual Human
+                            </div>
+                            <div class="badge" id="customer-service-indicator">
+                                <i class="fas fa-headset"></i> Support Assistant
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-messages">
+                    <div class="ai-message">
+                        <div class="ai-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="ai-message-content">
+                            <h3>Welcome to PMERIT!</h3>
+                            <p>I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.</p>
+                            <p>I can help you with:</p>
+                            <ul>
+                                <li>Course recommendations based on your interests</li>
+                                <li>Career path exploration</li>
+                                <li>Learning strategies and study techniques</li>
+                                <li>Answering your questions in real-time</li>
+                            </ul>
+                            <p>How can I help you discover your potential today?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-message">
+                        <div class="ai-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="ai-message-content">
+                            <h3>Getting Started</h3>
+                            <p>To help you best, I'd like to understand your learning goals and preferences. Would you like to:</p>
+                            <ol>
+                                <li>Take a quick learning style assessment?</li>
+                                <li>Explore career paths that match your interests?</li>
+                                <li>Jump directly into a specific course?</li>
+                            </ol>
+                            <p>I'm here to adapt to your needs and provide the most relevant guidance.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <textarea id="chat-input" placeholder="Ask about courses, learning paths, or your goals...">I'm interested in remote careers. What skills should I focus on?</textarea>
+                    <div class="input-footer">
+                        <div class="char-counter">43/500</div>
+                        <button class="send-btn">Send <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Pane -->
+        <aside class="right-pane">
+            <h3>Discover Your Path</h3>
+            <div class="card">
+                <h4><i class="fas fa-graduation-cap"></i> Learning Style Assessment</h4>
+                <p>Discover how you learn best and personalize your experience to maximize your learning potential.</p>
+                <button class="cta-btn">Start Assessment</button>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-heart"></i> Interest Profiler</h4>
+                <p>Explore subjects and fields that match your natural interests and discover potential career paths.</p>
+                <button class="cta-btn">Discover Interests</button>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-chart-line"></i> Skills Assessment</h4>
+                <p>Assess your current abilities and identify growth opportunities to advance your career.</p>
+                <button class="cta-btn">Evaluate Skills</button>
+            </div>
+            
+            <div class="card">
+                <h4><i class="fas fa-comments"></i> Virtual Human Features</h4>
+                <p>Our AI-powered virtual humans provide:</p>
+                <ul>
+                    <li>Personalized learning guidance</li>
+                    <li>24/7 educational support</li>
+                    <li>Emotionally responsive interactions</li>
+                    <li>Multilingual capabilities</li>
+                </ul>
+                <button class="cta-btn">Learn More</button>
+            </div>
+        </aside>
     </div>
 
-    <div class="local-careers">
-      <h4>Local Career Tracks:</h4>
-      <div class="tracks-grid">
-        <div class="track">Agriculture</div>
-        <div class="track">Local Manufacturing</div>
-        <div class="track">Community Services</div>
-        <!-- ... other local tracks ... -->
-      </div>
-    </div>
-    <button class="select-btn">Explore Local Education →</button>
-  </div>
-</div>
+    <script>
+        // DOM Elements
+        const dashboardBtn = document.getElementById('dashboard-btn');
+        const explorePathsBtn = document.getElementById('explore-paths-btn');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const virtualHumanToggle = document.getElementById('virtual-human-toggle');
+        const customerServiceToggle = document.getElementById('customer-service-toggle');
+        const ttsToggle = document.getElementById('tts-toggle');
+        const chatInput = document.getElementById('chat-input');
+        const charCounter = document.querySelector('.char-counter');
+        const virtualHumanIndicator = document.getElementById('virtual-human-indicator');
+        const customerServiceIndicator = document.getElementById('customer-service-indicator');
+        const signinBtn = document.getElementById('signin-btn');
+        const startLearningBtn = document.getElementById('start-learning-btn');
+        const humanSelect = document.getElementById('human-select');
+        const expressionButtons = document.querySelectorAll('.expression-btn');
+        const mouthElement = document.querySelector('.mouth');
+        const sendBtn = document.querySelector('.send-btn');
+        const chatHeaderTitle = document.querySelector('.chat-header h2');
+
+        // State Management
+        let isAuthenticated = false;
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+        let virtualHumanMode = true;
+        let customerServiceMode = false;
+        let ttsEnabled = true;
+        let currentExpression = 'neutral';
+        let currentHuman = 'EduGuide Alex';
+        let isSpeaking = false;
+        let lipSyncInterval;
+
+        // Initialize UI based on saved state
+        function initUI() {
+            // Apply dark mode if enabled
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.classList.add('active');
+            }
+            
+            // Set initial states for toggles
+            virtualHumanToggle.classList.add('active');
+            ttsToggle.classList.add('active');
+            
+            // Set up character counter
+            updateCharCounter();
+            
+            // Initialize virtual human animation
+            animateVirtualHuman();
+        }
+
+        // Update character counter
+        function updateCharCounter() {
+            charCounter.textContent = `${chatInput.value.length}/500`;
+        }
+
+        // Toggle modes
+        function toggleMode(btn, mode, indicator, modeName) {
+            btn.classList.toggle('active');
+            const isActive = btn.classList.contains('active');
+            
+            if (indicator) {
+                indicator.style.display = isActive ? 'inline-block' : 'none';
+            }
+            
+            // Special handling for customer service mode
+            if (mode === 'customerService') {
+                if (isActive) {
+                    chatHeaderTitle.innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
+                    document.querySelector('.ai-message p').textContent = 'How can I assist you today? Please describe your issue or question.';
+                } else {
+                    chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI';
+                    document.querySelector('.ai-message p').textContent = 'I\'m here to guide your learning journey. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities. How can I help you discover your potential today?';
+                }
+            }
+            
+            // Update state variable
+            if (mode === 'darkMode') darkMode = isActive;
+            if (mode === 'virtualHuman') virtualHumanMode = isActive;
+            if (mode === 'customerService') customerServiceMode = isActive;
+            if (mode === 'tts') ttsEnabled = isActive;
+            
+            // Save to localStorage
+            if (mode === 'darkMode') {
+                localStorage.setItem('darkMode', isActive);
+                document.body.classList.toggle('dark-mode', isActive);
+            }
+        }
+
+        // Dashboard button behavior
+        function handleDashboardClick() {
+            if (isAuthenticated) {
+                alert('Redirecting to Dashboard...');
+                // window.location.href = 'dashboard.html';
+            } else {
+                alert('Please sign up to access your dashboard!');
+                // Show sign up modal
+            }
+        }
+
+        // Change expression
+        function setExpression(expression) {
+            currentExpression = expression;
+            
+            // Update UI
+            expressionButtons.forEach(btn => {
+                if (btn.dataset.expression === expression) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Change mouth shape based on expression
+            switch(expression) {
+                case 'happy':
+                    mouthElement.style.height = '12px';
+                    mouthElement.style.borderRadius = '10px 10px 20px 20px';
+                    break;
+                case 'serious':
+                    mouthElement.style.height = '4px';
+                    mouthElement.style.borderRadius = '0';
+                    break;
+                case 'thoughtful':
+                    mouthElement.style.height = '6px';
+                    mouthElement.style.borderRadius = '10px';
+                    break;
+                default: // neutral
+                    mouthElement.style.height = '8px';
+                    mouthElement.style.borderRadius = '0 0 10px 10px';
+            }
+        }
+
+        // Change virtual human
+        function changeVirtualHuman(name) {
+            currentHuman = name;
+            document.querySelector('.chat-header h2').innerHTML = `<i class="fas fa-robot"></i> PMERIT AI - ${name}`;
+        }
+
+        // Animate virtual human
+        function animateVirtualHuman() {
+            // Start subtle breathing animation
+            const human = document.querySelector('.virtual-human');
+            let scale = 1;
+            let direction = -0.001;
+            
+            setInterval(() => {
+                scale += direction;
+                if (scale > 1.005) direction = -0.001;
+                if (scale < 0.995) direction = 0.001;
+                human.style.transform = `scale(${scale})`;
+            }, 50);
+        }
+
+        // Simulate speaking animation
+        function startSpeaking() {
+            if (isSpeaking) return;
+            
+            isSpeaking = true;
+            mouthElement.style.animation = 'speak 0.3s infinite';
+        }
+
+        // Stop speaking animation
+        function stopSpeaking() {
+            isSpeaking = false;
+            mouthElement.style.animation = 'none';
+            setExpression(currentExpression);
+        }
+
+        // Text-to-Speech functionality
+        function speakText(text) {
+            if ('speechSynthesis' in window && ttsEnabled) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                // Set voice properties
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+                
+                // Start animation
+                startSpeaking();
+                
+                utterance.onstart = () => {
+                    // Additional animation could go here
+                };
+                
+                utterance.onend = () => {
+                    stopSpeaking();
+                };
+                
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Event Listeners
+        darkModeToggle.addEventListener('click', () => toggleMode(darkModeToggle, 'darkMode'));
+        virtualHumanToggle.addEventListener('click', () => toggleMode(virtualHumanToggle, 'virtualHuman', virtualHumanIndicator));
+        customerServiceToggle.addEventListener('click', () => toggleMode(customerServiceToggle, 'customerService', customerServiceIndicator));
+        ttsToggle.addEventListener('click', () => toggleMode(ttsToggle, 'tts'));
+        
+        dashboardBtn.addEventListener('click', handleDashboardClick);
+        
+        explorePathsBtn.addEventListener('click', () => {
+            alert('Explore Paths modal would open here');
+        });
+        
+        chatInput.addEventListener('input', updateCharCounter);
+        
+        signinBtn.addEventListener('click', () => {
+            alert('Sign In functionality would open here');
+        });
+        
+        startLearningBtn.addEventListener('click', () => {
+            alert('Starting learning journey...');
+        });
+        
+        // Expression buttons
+        expressionButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setExpression(btn.dataset.expression);
+            });
+        });
+        
+        // Human selection
+        humanSelect.addEventListener('change', () => {
+            const humanName = humanSelect.options[humanSelect.selectedIndex].text;
+            changeVirtualHuman(humanName);
+        });
+        
+        // Send button
+        sendBtn.addEventListener('click', () => {
+            if (chatInput.value.trim() !== '') {
+                // Simulate AI response
+                speakText("Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.");
+                
+                // Add user message to chat
+                const chatMessages = document.querySelector('.chat-messages');
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message';
+                userMessage.innerHTML = `
+                    <div class="ai-avatar" style="background: #4f46e5;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="ai-message-content">
+                        <h3>You</h3>
+                        <p>${chatInput.value}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(userMessage);
+                
+                // Add AI response to chat
+                setTimeout(() => {
+                    const aiResponse = document.createElement('div');
+                    aiResponse.className = 'ai-message';
+                    aiResponse.innerHTML = `
+                        <div class="ai-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="ai-message-content">
+                            <h3>${currentHuman}</h3>
+                            <p>Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.</p>
+                            <p>Would you like me to suggest specific courses or learning paths in any of these areas?</p>
+                        </div>
+                    `;
+                    chatMessages.appendChild(aiResponse);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+                
+                // Clear input
+                chatInput.value = '';
+                updateCharCounter();
+            }
+        });
+
+        // Initialize the UI
+        initUI();
+
+        // Demo speaking animation
+        setTimeout(() => {
+            speakText("Welcome to PMERIT! I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support.");
+        }, 1000);
+    </script>
+</body>
+</html>
