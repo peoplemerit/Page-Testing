@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎓 PMERIT - Empowering Learning Through Innovation</title>
     
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/chat.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /*
-        * Pmerit Signature Colors
-        * From PmeritOfficial Home Design Template-Supporting code-file
-        */
+        /* ========================================
+           Combined CSS from all files
+           ======================================== */
+        
+        /* CSS Variables (from main.css) */
         :root {
             --primary-purple: #667eea;
             --secondary-purple: #764ba2;
@@ -30,18 +30,36 @@
             --border-radius: 16px;
             --header-height: 80px;
         }
+        
+        /* Dark Mode support */
+        body.dark-mode {
+            --primary-purple: #94a3b8;
+            --secondary-purple: #64748b;
+            --background-gradient: linear-gradient(135deg, #0f172a 0%, #1f2937 100%);
+            --card-bg: #1e293b;
+            --sidebar-bg: #1e293b;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
 
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Global Reset (from main.css) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
             background: var(--background-gradient);
             background-attachment: fixed;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow: hidden; /* Non-scrollable feature like Google Home page */
         }
         
-        /* Layout and Component Styles */
+        /* App Container (from main.css) */
         .app-container {
             height: 100vh;
             width: 100vw;
@@ -50,6 +68,7 @@
             overflow: hidden;
         }
 
+        /* Header Styles (from main.css) */
         .header {
             height: var(--header-height);
             background: var(--card-bg);
@@ -427,7 +446,6 @@
         
         .discovery-section {
             margin-bottom: 2rem;
-            padding: 0 1rem;
         }
         
         .assessment-cards {
@@ -486,7 +504,6 @@
             .app-container { min-height: 100vh; overflow: visible; }
             .header-content { padding: 0 1rem; gap: 0.5rem; flex-wrap: wrap; }
             .logo { font-size: 1.4rem; }
-            .header-center { display: none; }
             .nav-actions { gap: 0.5rem; flex-wrap: wrap; }
             .btn { padding: 0.5rem 0.8rem; font-size: 0.8rem; min-height: 44px; min-width: 44px; }
             
