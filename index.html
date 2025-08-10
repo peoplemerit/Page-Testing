@@ -59,11 +59,11 @@
             align-items: center;
             padding: 1rem 2rem;
             background-color: var(--light-bg);
-            box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 100;
             height: 80px;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .logo {
@@ -125,12 +125,10 @@
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
             color: white;
             border: none;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
 
         .start-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
         }
 
         /* ===== MAIN LAYOUT ===== */
@@ -285,12 +283,10 @@
             align-items: center;
             justify-content: center;
             gap: 0.7rem;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
 
         .dashboard-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
         }
 
         .dashboard-btn.guest {
@@ -337,7 +333,6 @@
             color: white;
             font-size: 3.2rem;
             border: 4px solid var(--border-light);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         /* ===== CENTER PANE STYLES ===== */
@@ -355,85 +350,31 @@
         .chat-header {
             padding: 1.5rem;
             border-bottom: 1px solid var(--border-light);
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            background-color: white;
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        .virtual-human-container {
-            position: relative;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #e2e8f0;
-            border: 3px solid white;
-            flex-shrink: 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-
-        .virtual-human {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: breathe 4s infinite ease-in-out;
-        }
-
-        .face {
-            position: relative;
-            width: 70px;
-            height: 70px;
-        }
-
-        .eyes {
-            position: absolute;
-            top: 22px;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .eye {
-            width: 14px;
-            height: 14px;
-            background: #1e293b;
-            border-radius: 50%;
-        }
-
-        .mouth {
-            position: absolute;
-            top: 45px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 10px;
-            background: #1e293b;
-            border-radius: 0 0 15px 15px;
-            transition: all 0.3s ease;
-        }
-
         .chat-header-content {
-            color: white;
+            color: var(--text-dark);
         }
 
         .chat-header h2 {
             display: flex;
             align-items: center;
             gap: 0.7rem;
-            color: white;
+            color: var(--primary-blue);
             margin-bottom: 0.5rem;
             font-size: 1.6rem;
         }
 
         .chat-header p {
-            color: rgba(255,255,255,0.9);
+            color: var(--text-dark);
             font-size: 1.05rem;
             max-width: 600px;
             line-height: 1.5;
+            opacity: 0.8;
         }
 
         .indicators {
@@ -443,16 +384,15 @@
         }
 
         .badge {
-            background-color: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            color: white;
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-blue);
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(37, 99, 235, 0.2);
         }
 
         .badge i {
@@ -569,12 +509,10 @@
             display: flex;
             align-items: center;
             gap: 0.7rem;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
 
         .send-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
         }
 
         /* ===== RIGHT PANE STYLES ===== */
@@ -655,89 +593,12 @@
             transition: var(--transition);
             width: 100%;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
         }
 
         .cta-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
         }
 
-        /* ===== VIRTUAL HUMAN CONTROLS ===== */
-        .human-controls {
-            background: var(--light-bg);
-            padding: 1.2rem;
-            border-radius: 12px;
-            margin-top: 1rem;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
-        }
-        
-        .human-controls h4 {
-            margin-bottom: 1rem;
-            color: var(--primary-blue);
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            font-size: 1.15rem;
-        }
-        
-        .control-row {
-            display: flex;
-            gap: 1.2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .human-select {
-            flex: 1;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            background: var(--light-bg);
-            color: var(--text-dark);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .human-select:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-        }
-        
-        .expression-controls {
-            display: flex;
-            gap: 0.7rem;
-            flex-wrap: wrap;
-        }
-        
-        .expression-btn {
-            padding: 0.6rem 1rem;
-            border-radius: 20px;
-            background: var(--light-bg);
-            border: 1px solid var(--border-light);
-            color: var(--text-dark);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .expression-btn:hover {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
-        }
-        
-        .expression-btn.active {
-            background: var(--primary-blue);
-            color: white;
-            border-color: var(--primary-blue);
-        }
-        
         /* ===== FOOTER STYLES ===== */
         footer {
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
@@ -883,19 +744,6 @@
             line-height: 1.5;
         }
 
-        /* ===== ANIMATIONS ===== */
-        @keyframes breathe {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes speak {
-            0% { height: 8px; }
-            50% { height: 4px; }
-            100% { height: 8px; }
-        }
-
         /* ===== MOBILE RESPONSIVENESS ===== */
         @media (max-width: 1100px) {
             .main-container {
@@ -986,14 +834,8 @@
                 padding: 1.2rem;
             }
             
-            .control-row {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-            
             .virtual-human-container {
-                width: 70px;
-                height: 70px;
+                display: none;
             }
 
             .chat-header {
@@ -1088,49 +930,14 @@
                     <i class="fas fa-user"></i>
                 </div>
             </div>
-            
-            <div class="human-controls">
-                <h4><i class="fas fa-cog"></i> Virtual Human Settings</h4>
-                <div class="control-row">
-                    <select class="human-select" id="human-select">
-                        <option value="1">EduGuide Alex</option>
-                        <option value="2">Mentor Maya</option>
-                        <option value="3">Professor Sam</option>
-                    </select>
-                </div>
-                <div class="control-row">
-                    <div class="expression-controls">
-                        <button class="expression-btn active" data-expression="neutral">
-                            <i class="fas fa-meh"></i> Neutral
-                        </button>
-                        <button class="expression-btn" data-expression="happy">
-                            <i class="fas fa-smile"></i> Happy
-                        </button>
-                        <button class="expression-btn" data-expression="serious">
-                            <i class="fas fa-frown"></i> Serious
-                        </button>
-                    </div>
-                </div>
-            </div>
         </aside>
 
         <!-- Center Pane -->
         <main class="center-pane">
             <div class="chat-container">
                 <div class="chat-header">
-                    <div class="virtual-human-container">
-                        <div class="virtual-human">
-                            <div class="face">
-                                <div class="eyes">
-                                    <div class="eye"></div>
-                                    <div class="eye"></div>
-                                </div>
-                                <div class="mouth"></div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="chat-header-content">
-                        <h2><i class="fas fa-robot"></i> PMERIT AI - EduGuide Alex</h2>
+                        <h2><i class="fas fa-robot"></i> PMERIT AI</h2>
                         <p>Empowering Learning Through Innovation. Accessible, high-quality education for global opportunities.</p>
                         <div class="indicators">
                             <div class="badge active" id="virtual-human-indicator">
@@ -1150,7 +957,7 @@
                         </div>
                         <div class="ai-message-content">
                             <h3>Welcome to PMERIT!</h3>
-                            <p>I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.</p>
+                            <p>I'm your virtual learning assistant. I'm here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.</p>
                             <p>I can help you with:</p>
                             <ul>
                                 <li>Course recommendations based on your interests</li>
@@ -1161,28 +968,12 @@
                             <p>How can I help you discover your potential today?</p>
                         </div>
                     </div>
-                    
-                    <div class="ai-message">
-                        <div class="ai-avatar">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="ai-message-content">
-                            <h3>Getting Started</h3>
-                            <p>To help you best, I'd like to understand your learning goals and preferences. Would you like to:</p>
-                            <ol>
-                                <li>Take a quick learning style assessment?</li>
-                                <li>Explore career paths that match your interests?</li>
-                                <li>Jump directly into a specific course?</li>
-                            </ol>
-                            <p>I'm here to adapt to your needs and provide the most relevant guidance.</p>
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="chat-input">
-                    <textarea id="chat-input" placeholder="Ask about courses, learning paths, or your goals...">I'm interested in remote careers. What skills should I focus on?</textarea>
+                    <textarea id="chat-input" placeholder="Ask about courses, learning paths, or your goals..."></textarea>
                     <div class="input-footer">
-                        <div class="char-counter">43/500</div>
+                        <div class="char-counter">0/500</div>
                         <button class="send-btn">Send <i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
@@ -1206,18 +997,6 @@
                 <h4><i class="fas fa-chart-line"></i> Skills Assessment</h4>
                 <p>Assess your current abilities and identify growth opportunities to advance your career.</p>
                 <button class="cta-btn">Evaluate Skills</button>
-            </div>
-            
-            <div class="card">
-                <h4><i class="fas fa-comments"></i> Virtual Human Features</h4>
-                <p>Our AI-powered virtual humans provide:</p>
-                <ul>
-                    <li>Personalized learning guidance</li>
-                    <li>24/7 educational support</li>
-                    <li>Emotionally responsive interactions</li>
-                    <li>Multilingual capabilities</li>
-                </ul>
-                <button class="cta-btn">Learn More</button>
             </div>
         </aside>
     </div>
@@ -1246,7 +1025,34 @@
             </div>
             <div class="modal-content">
                 <div class="career-list" id="career-list">
-                    <!-- Filled by JavaScript -->
+                    <div class="career-card">
+                        <h4><i class="fas fa-laptop-code"></i> Software Development</h4>
+                        <p>Full-stack development skills for modern web applications</p>
+                    </div>
+                    <div class="career-card">
+                        <h4><i class="fas fa-chart-bar"></i> Data Analytics</h4>
+                        <p>Analyze and visualize data to drive business decisions</p>
+                    </div>
+                    <div class="career-card">
+                        <h4><i class="fas fa-paint-brush"></i> UI/UX Design</h4>
+                        <p>Create intuitive and engaging user experiences</p>
+                    </div>
+                    <div class="career-card">
+                        <h4><i class="fas fa-bullhorn"></i> Digital Marketing</h4>
+                        <p>Promote products and services through digital channels</p>
+                    </div>
+                    <div class="career-card">
+                        <h4><i class="fas fa-headset"></i> Customer Support</h4>
+                        <p>Remote customer service and technical support</p>
+                    </div>
+                    <div class="career-card">
+                        <h4><i class="fas fa-tasks"></i> Virtual Assistance</h4>
+                        <p>Operations and administrative support services</p>
+                    </div>
+                    <div class="career-card">
+                        <h4><i class="fas fa-cloud"></i> Cloud & DevOps</h4>
+                        <p>Introduction to cloud infrastructure and DevOps practices</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1288,18 +1094,11 @@
             customerServiceIndicator: document.getElementById('customer-service-indicator'),
             signinBtn: document.getElementById('signin-btn'),
             startLearningBtn: document.getElementById('start-learning-btn'),
-            humanSelect: document.getElementById('human-select'),
-            expressionButtons: document.querySelectorAll('.expression-btn'),
-            mouthElement: document.querySelector('.mouth'),
-            sendBtn: document.querySelector('.send-btn'),
-            chatHeaderTitle: document.querySelector('.chat-header h2'),
-            chatHeaderTagline: document.querySelector('.chat-header p'),
-            avatarContainer: document.getElementById('avatar-container'),
             careerModal: document.getElementById('career-modal'),
             modalClose: document.getElementById('modal-close'),
-            careerList: document.getElementById('career-list'),
             rightPane: document.getElementById('right-pane'),
-            body: document.body
+            body: document.body,
+            sendBtn: document.querySelector('.send-btn')
         };
 
         // ===== INITIALIZATION =====
@@ -1317,22 +1116,11 @@
             // Set up character counter
             updateCharCounter();
             
-            // Initialize virtual human animation
-            animateVirtualHuman();
-            
-            // Set up career tracks modal
-            renderCareerTracks();
-            
             // Set up authentication state
             updateAuthState();
             
             // Set up mobile right pane toggle
             setupMobileBehavior();
-            
-            // Demo speaking animation
-            setTimeout(() => {
-                speakText("Welcome to PMERIT! I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support.");
-            }, 1500);
         }
 
         // ===== UTILITY FUNCTIONS =====
@@ -1349,24 +1137,6 @@
                 dom.dashboardBtn.classList.add('guest');
                 dom.dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
             }
-        }
-
-        function renderCareerTracks() {
-            dom.careerList.innerHTML = '';
-            state.careerTracks.forEach(track => {
-                const card = document.createElement('div');
-                card.className = 'career-card';
-                card.innerHTML = `
-                    <h4><i class="fas fa-road"></i> ${track.split(' (')[0]}</h4>
-                    <p>${track.includes('(') ? track.split('(')[1].replace(')', '') : 'Professional career track'}</p>
-                `;
-                card.addEventListener('click', () => {
-                    dom.chatInput.value = `Tell me more about ${track}`;
-                    updateCharCounter();
-                    dom.careerModal.classList.remove('active');
-                });
-                dom.careerList.appendChild(card);
-            });
         }
 
         function setupMobileBehavior() {
@@ -1393,17 +1163,16 @@
             if (mode === 'virtualHuman') {
                 state.virtualHumanMode = isActive;
                 dom.virtualHumanIndicator.style.display = isActive ? 'flex' : 'none';
-                dom.avatarContainer.classList.toggle('hidden', !isActive);
             } 
             else if (mode === 'customerService') {
                 state.customerServiceMode = isActive;
                 dom.customerServiceIndicator.style.display = isActive ? 'flex' : 'none';
                 if (isActive) {
-                    dom.chatHeaderTitle.innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
-                    dom.chatHeaderTagline.textContent = 'How can I assist you today? Please describe your issue or question.';
+                    document.querySelector('.chat-header h2').innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
+                    document.querySelector('.ai-message p').textContent = 'How can I assist you today? Please describe your issue or question.';
                 } else {
-                    dom.chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI - ' + state.currentHuman;
-                    dom.chatHeaderTagline.textContent = 'Empowering Learning Through Innovation. Accessible, high-quality education for global opportunities.';
+                    document.querySelector('.chat-header h2').innerHTML = '<i class="fas fa-robot"></i> PMERIT AI';
+                    document.querySelector('.ai-message p').textContent = 'I\'m your virtual learning assistant. I\'m here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.';
                 }
             } 
             else if (mode === 'darkMode') {
@@ -1413,88 +1182,6 @@
             } 
             else if (mode === 'tts') {
                 state.ttsEnabled = isActive;
-            }
-        }
-
-        // ===== VIRTUAL HUMAN FUNCTIONS =====
-        function setExpression(expression) {
-            state.currentExpression = expression;
-            
-            // Update UI
-            dom.expressionButtons.forEach(btn => {
-                if (btn.dataset.expression === expression) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-            
-            // Change mouth shape
-            switch(expression) {
-                case 'happy':
-                    dom.mouthElement.style.height = '12px';
-                    dom.mouthElement.style.borderRadius = '10px 10px 20px 20px';
-                    break;
-                case 'serious':
-                    dom.mouthElement.style.height = '4px';
-                    dom.mouthElement.style.borderRadius = '0';
-                    break;
-                default: // neutral
-                    dom.mouthElement.style.height = '8px';
-                    dom.mouthElement.style.borderRadius = '0 0 15px 15px';
-            }
-        }
-
-        function changeVirtualHuman(name) {
-            state.currentHuman = name;
-            document.querySelector('.chat-header h2').innerHTML = 
-                `<i class="fas fa-robot"></i> PMERIT AI - ${name}`;
-        }
-
-        function animateVirtualHuman() {
-            // Start subtle breathing animation
-            const human = document.querySelector('.virtual-human');
-            let scale = 1;
-            let direction = -0.001;
-            
-            setInterval(() => {
-                scale += direction;
-                if (scale > 1.005) direction = -0.001;
-                if (scale < 0.995) direction = 0.001;
-                human.style.transform = `scale(${scale})`;
-            }, 50);
-        }
-
-        function startSpeaking() {
-            if (state.isSpeaking) return;
-            state.isSpeaking = true;
-            dom.mouthElement.style.animation = 'speak 0.3s infinite';
-        }
-
-        function stopSpeaking() {
-            state.isSpeaking = false;
-            dom.mouthElement.style.animation = 'none';
-            setExpression(state.currentExpression);
-        }
-
-        function speakText(text) {
-            if ('speechSynthesis' in window && state.ttsEnabled) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 0.95;
-                utterance.pitch = 1.1;
-                utterance.volume = 1;
-                
-                startSpeaking();
-                
-                utterance.onstart = () => {
-                    // Additional animation could go here
-                };
-                
-                utterance.onend = () => {
-                    stopSpeaking();
-                };
-                
-                speechSynthesis.speak(utterance);
             }
         }
 
@@ -1544,27 +1231,9 @@
             alert('Starting your learning journey...');
             // In a real app: begin onboarding process
         });
-        
-        // Expression buttons
-        dom.expressionButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                setExpression(btn.dataset.expression);
-            });
-        });
-        
-        // Virtual human selection
-        dom.humanSelect.addEventListener('change', () => {
-            const humanName = dom.humanSelect.options[dom.humanSelect.selectedIndex].text;
-            changeVirtualHuman(humanName);
-        });
-        
-        // Send message
+
         dom.sendBtn.addEventListener('click', () => {
             if (dom.chatInput.value.trim() !== '') {
-                // Simulate AI response
-                speakText("Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.");
-                
-                // Add user message to chat
                 const chatMessages = document.querySelector('.chat-messages');
                 const userMessage = document.createElement('div');
                 userMessage.className = 'ai-message';
@@ -1579,7 +1248,7 @@
                 `;
                 chatMessages.appendChild(userMessage);
                 
-                // Add AI response to chat
+                // Simulate AI response
                 setTimeout(() => {
                     const aiResponse = document.createElement('div');
                     aiResponse.className = 'ai-message';
@@ -1588,9 +1257,9 @@
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
-                            <h3>${state.currentHuman}</h3>
-                            <p>Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.</p>
-                            <p>Would you like me to suggest specific courses or learning paths in any of these areas?</p>
+                            <h3>PMERIT AI</h3>
+                            <p>Thank you for your question. Based on your interest, I recommend exploring our career tracks to find the best learning path for you.</p>
+                            <p>Would you like me to suggest specific courses or learning paths?</p>
                         </div>
                     `;
                     chatMessages.appendChild(aiResponse);
