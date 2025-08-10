@@ -3,625 +3,1608 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎓 PMERIT - Empowering Learning Through Innovation</title>
-
+    <title>PMERIT - Accessible Global Education</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        /* ===== GLOBAL STYLES ===== */
         :root {
-            --primary-purple: #667eea;
-            --secondary-purple: #764ba2;
-            --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --sidebar-bg: rgba(255, 255, 255, 0.9);
-            --text-primary: #333;
-            --text-secondary: #666;
-            --border-color: rgba(102,126,234,0.2);
-            --shadow: 0 4px 16px rgba(102,126,234,0.07);
-            --border-radius: 10px;
-            --header-height: 48px;
-            --footer-height: 36px;
+            --primary-blue: #2563EB;
+            --secondary-green: #16A34A;
+            --accent-purple: #7C3AED;
+            --dark-bg: #0f172a;
+            --light-bg: #ffffff;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --border-light: #e2e8f0;
+            --border-dark: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
+
+        .dark-mode {
+            --primary-bg: var(--dark-bg);
+            --secondary-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-color: var(--text-light);
+            --border-color: var(--border-dark);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
         body {
-            margin: 0; padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--background-gradient);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-        }
-        .app-container {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            transition: var(--transition);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            width: 100vw;
+            overflow: hidden;
         }
-        .header {
-            height: var(--header-height);
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-color);
+
+        body.non-scrollable {
+            overflow: hidden;
+        }
+
+        /* ===== HEADER STYLES ===== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--light-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--secondary-green);
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a, nav button {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav button:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .signin-btn {
+            background: none;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .signin-btn:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
+        }
+
+        /* ===== MAIN LAYOUT ===== */
+        .main-container {
+            display: flex;
+            flex: 1;
+            max-width: 1800px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1rem;
+            height: calc(100vh - 160px); /* 80px header + 80px footer */
+        }
+
+        .left-pane {
+            width: 280px;
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            border-right: 1px solid var(--border-light);
+            overflow-y: auto;
+        }
+
+        .center-pane {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 900px;
+        }
+
+        .right-pane {
+            width: 320px;
+            padding: 2rem 1.5rem;
+            background-color: var(--light-bg);
+            border-left: 1px solid var(--border-light);
+            overflow-y: auto;
+        }
+
+        /* ===== LEFT PANE STYLES ===== */
+        .pane-header {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pane-header i {
+            font-size: 1.2rem;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: none;
+            border: 1px solid var(--border-light);
+            color: var(--text-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            text-align: left;
+        }
+
+        .action-btn:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+            border-color: var(--primary-blue);
+            transform: translateX(5px);
+        }
+
+        .action-btn i {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            width: 24px;
+            text-align: center;
+        }
+
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border-radius: 10px;
+            background: none;
+            border: 1px solid var(--border-light);
+            color: var(--text-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .toggle-btn.active {
+            background-color: rgba(37, 99, 235, 0.08);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .toggle-btn i {
+            color: var(--primary-blue);
+        }
+
+        .toggle-indicator {
+            width: 45px;
+            height: 24px;
+            background-color: #cbd5e1;
+            border-radius: 12px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .toggle-indicator::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .active .toggle-indicator {
+            background-color: var(--primary-blue);
+        }
+
+        .active .toggle-indicator::after {
+            left: calc(100% - 22px);
+        }
+
+        .dashboard-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: var(--header-height);
-            width: 100%;
-            z-index: 10;
+            gap: 0.7rem;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
-        .header-content {
-            width: 100%;
-            max-width: 1150px;
-            padding: 0 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
+
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
         }
-        .logo {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-purple);
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .language-selector {
-            padding: 0.2rem 0.4rem;
-            border: 1px solid var(--border-color);
-            border-radius: 7px;
-            font-size: 0.8rem;
-            background: white;
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-        .btn {
-            padding: 0.25rem 0.8rem;
-            border: none;
-            border-radius: 7px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            min-width: 60px;
-            min-height: 28px;
-        }
-        .btn-pricing, .btn-signin {
-            background: transparent;
-            color: var(--primary-purple);
-            border: 1px solid var(--primary-purple);
-        }
-        .btn-pricing:hover, .btn-signin:hover {
-            background: var(--primary-purple);
-            color: white;
-        }
-        .btn-primary {
-            background: var(--primary-purple);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: var(--secondary-purple);
-        }
-        .main-content {
-            flex: 1;
-            display: grid;
-            grid-template-columns: 160px 1fr 180px;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            width: 100vw;
-            max-width: 1150px;
-            margin: 0 auto;
-            box-sizing: border-box;
-            height: calc(100vh - var(--header-height) - var(--footer-height));
-            min-height: 0;
-        }
-        .sidebar-left, .sidebar-right {
-            background: var(--sidebar-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 0.4rem 0.3rem;
-            overflow: hidden;
-            height: 100%;
-            min-width: 0;
-        }
-        .sidebar-left { justify-content: flex-start; }
-        .sidebar-right { justify-content: flex-start; }
-        .sidebar-section {
-            margin-bottom: 0.5rem;
-            width: 100%;
-        }
-        .quick-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-            width: 100%;
-        }
-        .action-item {
-            padding: 0.3rem 0.3rem;
-            border-radius: 7px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-            color: var(--text-primary);
-            font-size: 0.85rem;
-            background: white;
-            min-height: 28px;
-        }
-        .action-item .icon { font-size: 1rem; }
-        .action-item:hover, .action-item.active {
-            background: var(--primary-purple);
-            color: #fff;
-        }
-        .virtual-human-area {
-            margin-top: 0.2rem;
-            text-align: center;
-        }
-        .virtual-human-avatar {
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
-            display: flex; align-items: center; justify-content: center;
-            color: white;
-            font-size: 1.6rem;
-            border: 2px solid var(--border-color);
-            margin: 0 auto;
-        }
-        .dashboard-btn {
-            background: var(--primary-purple);
-            color: white;
-            border: none;
-            padding: 0.3rem;
-            border-radius: 7px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 0.2rem;
-            width: 100%;
-            font-size: 0.85rem;
-            min-height: 28px;
-        }
+
         .dashboard-btn.guest {
-            background: #eee;
-            color: #888;
+            background: #64748b;
+            position: relative;
         }
+
+        .dashboard-btn.guest::after {
+            content: "(Sign Up Required)";
+            position: absolute;
+            bottom: -24px;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #94a3b8;
+            width: 100%;
+            text-align: center;
+            left: 0;
+        }
+
+        .avatar-container {
+            margin-top: auto;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+            transition: var(--transition);
+            opacity: 1;
+        }
+
+        .avatar-container.hidden {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.2rem;
+            border: 4px solid var(--border-light);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* ===== CENTER PANE STYLES ===== */
         .chat-container {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            border-radius: 16px;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             height: 100%;
-            min-width: 0;
-            overflow: hidden;
+            border: 1px solid var(--border-light);
         }
+
         .chat-header {
-            padding: 0.4rem 0.2rem;
-            border-bottom: 1px solid var(--border-color);
-            background: var(--sidebar-bg);
-            flex-shrink: 0;
-        }
-        .header-center-ai {
-            text-align: center;
-        }
-        .header-center-ai h1 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.1rem;
-        }
-        .header-center-ai p {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            margin: 0;
-        }
-        .chat-messages {
-            flex: 1;
-            padding: 0.4rem 0.3rem;
-            overflow: hidden;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
             display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-            min-height: 0;
-            font-size: 0.92rem;
-        }
-        .message {
-            word-wrap: break-word;
-            max-width: 100%;
-        }
-        .ai-message .message-content {
-            background: rgba(102,126,234,0.08);
-            padding: 0.3rem 0.5rem;
-            border-radius: 9px;
-            border-left: 3px solid var(--primary-purple);
-            color: var(--text-primary);
-        }
-        .user-message {
-            text-align: right;
-        }
-        .user-message .message-content {
-            background: rgba(118,75,162,0.11);
-            padding: 0.3rem 0.5rem;
-            border-radius: 9px;
-            border-right: 3px solid var(--secondary-purple);
-            color: var(--text-primary);
-            display: inline-block;
-            max-width: 80%;
-        }
-        .chat-input-container {
-            border-top: 1px solid var(--border-color);
-            padding: 0.3rem 0.2rem;
-            flex-shrink: 0;
-            background: var(--sidebar-bg);
-        }
-        .chat-input-wrapper {
-            display: flex;
-            gap: 0.4rem;
             align-items: center;
-            margin-bottom: 0.2rem;
+            gap: 20px;
         }
-        #chatInput {
-            flex: 1;
-            padding: 0.2rem 0.5rem;
-            border: 1px solid var(--border-color);
-            border-radius: 9px;
-            font-size: 0.88rem;
-            background: white;
-            color: var(--text-primary);
-            min-height: 28px;
-            max-width: 66%;
-        }
-        .send-button {
-            width: 28px; height: 28px;
+
+        .virtual-human-container {
+            position: relative;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
-            background: var(--primary-purple);
-            color: white;
-            border: none;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            background: #e2e8f0;
+            border: 3px solid white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
-        .send-icon { font-size: 1.05rem; font-weight: bold; }
-        .chat-footer {
+
+        .virtual-human {
+            width: 100%;
+            height: 100%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-size: 0.7rem;
+            justify-content: center;
+            position: relative;
+            animation: breathe 4s infinite ease-in-out;
         }
-        .char-count { color: var(--text-secondary); }
-        .status-item {
-            color: var(--text-secondary);
-            padding: 0.12rem 0.3rem;
-            border-radius: 5px;
-            background: rgba(102,126,234,0.08);
+
+        .face {
+            position: relative;
+            width: 70px;
+            height: 70px;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 22px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .eye {
+            width: 14px;
+            height: 14px;
+            background: #1e293b;
+            border-radius: 50%;
+        }
+
+        .mouth {
+            position: absolute;
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 10px;
+            background: #1e293b;
+            border-radius: 0 0 15px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header-content {
+            color: white;
+        }
+
+        .chat-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.6rem;
+        }
+
+        .chat-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.05rem;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .indicators {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background-color: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
+            gap: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.3);
         }
-        .status-connected {
-            background: rgba(34,197,94,0.08);
-            color: #16a34a;
-            font-weight: 500;
+
+        .badge i {
+            font-size: 0.9rem;
         }
-        .sidebar-right .sidebar-content, .sidebar-left .sidebar-content {
-            width: 100%;
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.8rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+            background-color: rgba(241, 245, 249, 0.4);
         }
-        .discovery-section {
-            margin-bottom: 0.4rem;
-            font-size: 0.85rem;
-            text-align: center;
+
+        .ai-message {
+            background-color: white;
+            border-radius: 14px;
+            padding: 1.8rem;
+            border: 1px solid var(--border-light);
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            box-shadow: var(--shadow);
         }
-        .assessment-cards {
-            padding: 0;
-            width: 100%;
-        }
-        .assessment-card {
-            background: white;
-            border-radius: 7px;
-            border: 1px solid var(--border-color);
-            padding: 0.4rem;
-            margin-bottom: 0.35rem;
-            cursor: pointer;
-            font-size: 0.85rem;
-            min-height: 38px;
-        }
-        .assessment-card .card-header {
+
+        .ai-avatar {
+            min-width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
         }
-        .assessment-card h4 {
-            color: var(--text-primary);
-            font-size: 0.93rem;
-            font-weight: 600;
-            margin: 0;
+
+        .ai-message-content {
+            flex: 1;
         }
-        .assessment-btn {
+
+        .ai-message h3 {
+            margin-bottom: 0.7rem;
+            color: var(--primary-blue);
+            font-size: 1.3rem;
+        }
+
+        .ai-message p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+        }
+
+        .ai-message ul, .ai-message ol {
+            margin: 1.2rem 0;
+            padding-left: 1.8rem;
+        }
+
+        .ai-message li {
+            margin-bottom: 0.7rem;
+            line-height: 1.6;
+        }
+
+        .chat-input {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-light);
+            background-color: white;
+        }
+
+        textarea {
             width: 100%;
-            padding: 0.18rem;
-            background: var(--primary-purple);
+            padding: 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            resize: none;
+            min-height: 110px;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        .input-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+        }
+
+        .char-counter {
+            font-size: 0.95rem;
+            color: #94a3b8;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
             color: white;
             border: none;
-            border-radius: 7px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
-            min-height: 28px;
-        }
-        .footer {
-            height: var(--footer-height);
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-color);
-            padding: 0 1rem;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 0.7rem;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
         }
-        .footer-links {
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.4);
+        }
+
+        /* ===== RIGHT PANE STYLES ===== */
+        .right-pane h3 {
+            margin-bottom: 1.8rem;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .right-pane h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
+            border-radius: 4px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 1.8rem;
+            margin-bottom: 1.8rem;
+            border-left: 5px solid var(--primary-blue);
+            transition: var(--transition);
+            border: 1px solid var(--border-light);
+        }
+
+        .card:nth-child(2) {
+            border-left-color: var(--secondary-green);
+        }
+
+        .card:nth-child(3) {
+            border-left-color: #8b5cf6;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
             display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .card h4 i {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: var(--text-dark);
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        /* ===== VIRTUAL HUMAN CONTROLS ===== */
+        .human-controls {
+            background: var(--light-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+        }
+        
+        .human-controls h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.15rem;
+        }
+        
+        .control-row {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .human-select {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: var(--light-bg);
+            color: var(--text-dark);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .human-select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .expression-controls {
+            display: flex;
+            gap: 0.7rem;
+            flex-wrap: wrap;
+        }
+        
+        .expression-btn {
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            background: var(--light-bg);
+            border: 1px solid var(--border-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
             gap: 0.5rem;
         }
-        .footer-links a {
-            color: var(--primary-purple);
-            text-decoration: none;
-            font-size: 0.8rem;
+        
+        .expression-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
         }
-        .footer-links a:hover { text-decoration: underline; }
+        
+        .expression-btn.active {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+        
+        /* ===== FOOTER STYLES ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
 
-        @media (max-width: 900px) {
-            .main-content {
-                grid-template-columns: 1fr 2fr 1fr;
-                max-width: 100vw;
-            }
-            .sidebar-left, .sidebar-right { min-width: 0; }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
         }
-        @media (max-width: 600px) {
-            .main-content {
-                grid-template-columns: 1fr;
-                grid-template-rows: 100px auto 110px;
-                gap: 0.3rem;
+
+        .footer-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* ===== MODAL STYLES ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--light-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .modal-content {
+            padding: 2rem;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+
+        .career-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .career-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .career-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .career-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .career-card p {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes breathe {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes speak {
+            0% { height: 8px; }
+            50% { height: 4px; }
+            100% { height: 8px; }
+        }
+
+        /* ===== MOBILE RESPONSIVENESS ===== */
+        @media (max-width: 1100px) {
+            .main-container {
+                flex-direction: column;
             }
-            .sidebar-left, .sidebar-right {
+            
+            .left-pane, .right-pane {
+                width: 100%;
+                border: none;
+                border-bottom: 1px solid var(--border-light);
+            }
+            
+            .left-pane {
+                order: 1;
                 flex-direction: row;
-                height: 44px;
-                min-width: 0;
-                padding: 0.2rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+                padding: 1.2rem;
             }
-            .sidebar-left .sidebar-section, .sidebar-right .assessment-cards,
-            .sidebar-right .discovery-section {
-                margin-bottom: 0;
-                padding: 0;
+            
+            .left-pane > div {
+                flex: 1;
+                min-width: 200px;
             }
-            .sidebar-left, .sidebar-right {
-                font-size: 0.78rem;
+            
+            .avatar-container {
+                display: none;
             }
-            .chat-container { min-height: 300px; }
+            
+            .center-pane {
+                order: 2;
+                padding: 1.5rem;
+            }
+            
+            .right-pane {
+                order: 3;
+                display: none;
+            }
+            
+            .right-pane.active {
+                display: block;
+            }
+            
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .card {
+                flex: 1;
+                min-width: 280px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1.5rem;
+                height: auto;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                height: auto;
+            }
+            
+            nav {
+                width: 100%;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .left-pane {
+                padding: 1rem;
+            }
+            
+            .center-pane {
+                padding: 1.2rem;
+            }
+            
+            .control-row {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .virtual-human-container {
+                width: 70px;
+                height: 70px;
+            }
+
+            .chat-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .chat-header h2 {
+                justify-content: center;
+            }
+
+            .indicators {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">🎓 PMERIT</div>
-                <nav class="nav-actions">
-                    <a href="#" id="donate-link" class="btn btn-pricing">Donate</a>
-                    <select class="language-selector">
-                        <option value="en">🌍 English</option>
-                        <option value="yo">Yoruba</option>
-                        <option value="ig">Igbo</option>
-                        <option value="ha">Hausa</option>
-                    </select>
-                    <a href="#" class="btn btn-signin" id="signin-btn">Sign In</a>
-                    <a href="#" class="btn btn-primary" id="start-learning-btn">Start Learning</a>
-                </nav>
+    <!-- Header -->
+    <header>
+        <div class="logo">P<span>MERIT</span></div>
+        <nav>
+            <a href="#" id="donate-link">Donate</a>
+            <select id="language-selector">
+                <option value="en">English</option>
+                <option value="yo">Yoruba</option>
+                <option value="ig">Igbo</option>
+                <option value="ha">Hausa</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+            </select>
+            <div class="nav-buttons">
+                <button class="nav-btn signin-btn" id="signin-btn">Sign In</button>
+                <button class="nav-btn start-btn" id="start-learning-btn">Start Learning</button>
             </div>
-        </header>
-        <main class="main-content">
-            <aside class="sidebar-left" id="leftSidebar">
-                <div class="sidebar-content">
-                    <div class="sidebar-section">
-                        <div class="quick-actions">
-                            <div class="action-item active" id="virtual-human-toggle" title="Virtual Human">
-                                <i class="fas fa-user icon"></i>
-                            </div>
-                            <div class="action-item" id="explore-paths-btn" title="Career Tracks">
-                                <i class="fas fa-compass icon"></i>
-                            </div>
-                            <div class="action-item" id="customer-service-toggle" title="Customer Service">
-                                <i class="fas fa-headset icon"></i>
-                            </div>
-                            <div class="action-item" id="dark-mode-toggle" title="Dark Mode">
-                                <i class="fas fa-moon icon"></i>
-                            </div>
-                            <div class="action-item active" id="tts-toggle" title="Text-to-Speech">
-                                <i class="fas fa-volume-up icon"></i>
-                            </div>
-                        </div>
-                        <button class="dashboard-btn" id="dashboard-btn">
-                            <i class="fas fa-tachometer-alt"></i>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Pane -->
+        <aside class="left-pane">
+            <div>
+                <div class="pane-header">
+                    <i class="fas fa-bolt"></i> Quick Actions
+                </div>
+                <button class="toggle-btn active" id="virtual-human-toggle">
+                    <div>
+                        <i class="fas fa-user"></i> Virtual Human Mode
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+                <button class="action-btn" id="explore-paths-btn">
+                    <i class="fas fa-compass"></i>
+                    <span>Explore Career Tracks</span>
+                </button>
+                <button class="toggle-btn" id="customer-service-toggle">
+                    <div>
+                        <i class="fas fa-headset"></i> Customer Service Mode
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+            </div>
+            
+            <div>
+                <div class="pane-header">
+                    <i class="fas fa-cog"></i> Settings
+                </div>
+                <button class="toggle-btn" id="dark-mode-toggle">
+                    <div>
+                        <i class="fas fa-moon"></i> Dark Mode
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+                <button class="toggle-btn active" id="tts-toggle">
+                    <div>
+                        <i class="fas fa-volume-up"></i> Text-to-Speech
+                    </div>
+                    <div class="toggle-indicator"></div>
+                </button>
+            </div>
+            
+            <div>
+                <button class="dashboard-btn guest" id="dashboard-btn">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </button>
+            </div>
+            
+            <div class="avatar-container" id="avatar-container">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            
+            <div class="human-controls">
+                <h4><i class="fas fa-cog"></i> Virtual Human Settings</h4>
+                <div class="control-row">
+                    <select class="human-select" id="human-select">
+                        <option value="1">EduGuide Alex</option>
+                        <option value="2">Mentor Maya</option>
+                        <option value="3">Professor Sam</option>
+                    </select>
+                </div>
+                <div class="control-row">
+                    <div class="expression-controls">
+                        <button class="expression-btn active" data-expression="neutral">
+                            <i class="fas fa-meh"></i> Neutral
+                        </button>
+                        <button class="expression-btn" data-expression="happy">
+                            <i class="fas fa-smile"></i> Happy
+                        </button>
+                        <button class="expression-btn" data-expression="serious">
+                            <i class="fas fa-frown"></i> Serious
                         </button>
                     </div>
-                    <div class="virtual-human-area">
-                        <div class="virtual-human-avatar">
-                            <i class="fas fa-user-circle"></i>
-                        </div>
-                    </div>
                 </div>
-            </aside>
-            <section class="chat-container">
+            </div>
+        </aside>
+
+        <!-- Center Pane -->
+        <main class="center-pane">
+            <div class="chat-container">
                 <div class="chat-header">
-                    <div class="header-center-ai">
-                        <h1>PMERIT AI</h1>
-                        <p>Accessible, high-quality education for global opportunities</p>
-                    </div>
-                </div>
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message ai-message">
-                        <div class="message-content">
-                            <strong>PMERIT AI:</strong> Welcome to PMERIT! Let's start your learning journey.
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-input-container">
-                    <div class="chat-input-wrapper">
-                        <input type="text" id="chatInput" placeholder="Ask about courses, learning paths, or your goals..." maxlength="500">
-                        <button id="sendButton" class="send-button">
-                            <span class="send-icon">→</span>
-                        </button>
-                    </div>
-                    <div class="chat-footer">
-                        <span class="char-count">0/500</span>
-                        <span class="status-item" id="virtual-human-indicator"><i class="fas fa-user"></i></span>
-                        <span class="status-connected">✅ Connected</span>
-                    </div>
-                </div>
-            </section>
-            <aside class="sidebar-right" id="rightSidebar">
-                <div class="sidebar-content">
-                    <div class="discovery-section">
-                        <span>Assessments</span>
-                    </div>
-                    <div class="assessment-cards">
-                        <div class="assessment-card" data-assessment="learning-style">
-                            <div class="card-header">
-                                <i class="fas fa-graduation-cap icon"></i>
-                                <h4>Learning Style</h4>
+                    <div class="virtual-human-container">
+                        <div class="virtual-human">
+                            <div class="face">
+                                <div class="eyes">
+                                    <div class="eye"></div>
+                                    <div class="eye"></div>
+                                </div>
+                                <div class="mouth"></div>
                             </div>
-                            <button class="assessment-btn">Start →</button>
                         </div>
-                        <div class="assessment-card" data-assessment="interest-profiler">
-                            <div class="card-header">
-                                <i class="fas fa-heart icon"></i>
-                                <h4>Interest Profiler</h4>
+                    </div>
+                    <div class="chat-header-content">
+                        <h2><i class="fas fa-robot"></i> PMERIT AI - EduGuide Alex</h2>
+                        <p>Empowering Learning Through Innovation. Accessible, high-quality education for global opportunities.</p>
+                        <div class="indicators">
+                            <div class="badge active" id="virtual-human-indicator">
+                                <i class="fas fa-user"></i> Virtual Human
                             </div>
-                            <button class="assessment-btn">Discover →</button>
-                        </div>
-                        <div class="assessment-card" data-assessment="skills-assessment">
-                            <div class="card-header">
-                                <i class="fas fa-chart-line icon"></i>
-                                <h4>Skills</h4>
+                            <div class="badge" id="customer-service-indicator">
+                                <i class="fas fa-headset"></i> Support Assistant
                             </div>
-                            <button class="assessment-btn">Evaluate →</button>
                         </div>
                     </div>
                 </div>
-            </aside>
+                
+                <div class="chat-messages">
+                    <div class="ai-message">
+                        <div class="ai-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="ai-message-content">
+                            <h3>Welcome to PMERIT!</h3>
+                            <p>I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support. Our mission is to provide accessible, high-quality education that opens doors to endless opportunities.</p>
+                            <p>I can help you with:</p>
+                            <ul>
+                                <li>Course recommendations based on your interests</li>
+                                <li>Career path exploration</li>
+                                <li>Learning strategies and study techniques</li>
+                                <li>Answering your questions in real-time</li>
+                            </ul>
+                            <p>How can I help you discover your potential today?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-message">
+                        <div class="ai-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="ai-message-content">
+                            <h3>Getting Started</h3>
+                            <p>To help you best, I'd like to understand your learning goals and preferences. Would you like to:</p>
+                            <ol>
+                                <li>Take a quick learning style assessment?</li>
+                                <li>Explore career paths that match your interests?</li>
+                                <li>Jump directly into a specific course?</li>
+                            </ol>
+                            <p>I'm here to adapt to your needs and provide the most relevant guidance.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <textarea id="chat-input" placeholder="Ask about courses, learning paths, or your goals...">I'm interested in remote careers. What skills should I focus on?</textarea>
+                    <div class="input-footer">
+                        <div class="char-counter">43/500</div>
+                        <button class="send-btn">Send <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
         </main>
-        <footer class="footer">
-            <span>&copy; 2025 PMERIT.</span>
-            <span class="footer-links">
-                <a href="#">Contact</a>
-                <a href="#">Support</a>
-                <a href="#">Terms</a>
-            </span>
-        </footer>
+
+        <!-- Right Pane -->
+        <aside class="right-pane" id="right-pane">
+            <h3>Discover Your Path</h3>
+            <div class="card">
+                <h4><i class="fas fa-graduation-cap"></i> Learning Style Assessment</h4>
+                <p>Discover how you learn best and personalize your experience to maximize your learning potential.</p>
+                <button class="cta-btn">Start Assessment</button>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-heart"></i> Interest Profiler</h4>
+                <p>Explore subjects and fields that match your natural interests and discover potential career paths.</p>
+                <button class="cta-btn">Discover Interests</button>
+            </div>
+            <div class="card">
+                <h4><i class="fas fa-chart-line"></i> Skills Assessment</h4>
+                <p>Assess your current abilities and identify growth opportunities to advance your career.</p>
+                <button class="cta-btn">Evaluate Skills</button>
+            </div>
+            
+            <div class="card">
+                <h4><i class="fas fa-comments"></i> Virtual Human Features</h4>
+                <p>Our AI-powered virtual humans provide:</p>
+                <ul>
+                    <li>Personalized learning guidance</li>
+                    <li>24/7 educational support</li>
+                    <li>Emotionally responsive interactions</li>
+                    <li>Multilingual capabilities</li>
+                </ul>
+                <button class="cta-btn">Learn More</button>
+            </div>
+        </aside>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Statement & Terms</a>
+            <a href="#">Contact</a>
+            <a href="#">Partnerships</a>
+            <a href="#">Support</a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 PMERIT. Knowledge as Liberation.
+        </div>
+    </footer>
+
+    <!-- Career Tracks Modal -->
+    <div class="modal-overlay" id="career-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-compass"></i> Explore Career Tracks</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="career-list" id="career-list">
+                    <!-- Filled by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-    // --- Compact Core Application State ---
-    let isAuthenticated = false;
-    let darkMode = localStorage.getItem('darkMode') === 'true';
-    let virtualHumanMode = true;
-    let customerServiceMode = false;
-    let ttsEnabled = localStorage.getItem('ttsEnabled') === 'true';
-    const careerTracks = ["Software Development", "Data Analytics", "UI/UX", "Marketing", "Support", "Virtual Assistant", "Cloud & DevOps"];
-    const startLearningBtn = document.getElementById('start-learning-btn');
-    const signinBtn = document.getElementById('signin-btn');
-    const dashboardBtn = document.getElementById('dashboard-btn');
-    const donateLink = document.getElementById('donate-link');
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const ttsToggle = document.getElementById('tts-toggle');
-    const virtualHumanToggle = document.getElementById('virtual-human-toggle');
-    const customerServiceToggle = document.getElementById('customer-service-toggle');
-    const explorePathsBtn = document.getElementById('explore-paths-btn');
-    const chatInput = document.getElementById('chatInput');
-    const sendButton = document.getElementById('sendButton');
-    const chatMessages = document.getElementById('chatMessages');
-    const charCountElement = document.querySelector('.char-count');
-    const virtualHumanIndicator = document.getElementById('virtual-human-indicator');
-    document.addEventListener('DOMContentLoaded', () => {
-        if (darkMode) document.body.classList.add('dark-mode');
-        if (ttsEnabled) ttsToggle.classList.add('active');
-        updateAuthUI(isAuthenticated);
-        updateCharCounter();
-        setupEventListeners();
-    });
-    function updateAuthUI(isAuth) {
-        dashboardBtn.classList.toggle('guest', !isAuth);
-    }
-    function updateCharCounter() {
-        if (chatInput && charCountElement) {
-            const count = chatInput.value.length;
-            charCountElement.textContent = `${count}/500`;
+        // ===== STATE MANAGEMENT =====
+        const state = {
+            isAuthenticated: localStorage.getItem('isAuthenticated') === 'true',
+            darkMode: localStorage.getItem('darkMode') === 'true',
+            virtualHumanMode: true,
+            customerServiceMode: false,
+            ttsEnabled: true,
+            currentExpression: 'neutral',
+            currentHuman: 'EduGuide Alex',
+            isSpeaking: false,
+            careerTracks: [
+                "Software Development (Full-stack)",
+                "Data Analytics",
+                "UI/UX Design",
+                "Digital Marketing",
+                "Customer Support (Remote)",
+                "Virtual Assistance / Operations",
+                "Cloud & DevOps (Intro)"
+            ]
+        };
+
+        // ===== DOM ELEMENTS =====
+        const dom = {
+            dashboardBtn: document.getElementById('dashboard-btn'),
+            explorePathsBtn: document.getElementById('explore-paths-btn'),
+            darkModeToggle: document.getElementById('dark-mode-toggle'),
+            virtualHumanToggle: document.getElementById('virtual-human-toggle'),
+            customerServiceToggle: document.getElementById('customer-service-toggle'),
+            ttsToggle: document.getElementById('tts-toggle'),
+            chatInput: document.getElementById('chat-input'),
+            charCounter: document.querySelector('.char-counter'),
+            virtualHumanIndicator: document.getElementById('virtual-human-indicator'),
+            customerServiceIndicator: document.getElementById('customer-service-indicator'),
+            signinBtn: document.getElementById('signin-btn'),
+            startLearningBtn: document.getElementById('start-learning-btn'),
+            humanSelect: document.getElementById('human-select'),
+            expressionButtons: document.querySelectorAll('.expression-btn'),
+            mouthElement: document.querySelector('.mouth'),
+            sendBtn: document.querySelector('.send-btn'),
+            chatHeaderTitle: document.querySelector('.chat-header h2'),
+            chatHeaderTagline: document.querySelector('.chat-header p'),
+            avatarContainer: document.getElementById('avatar-container'),
+            careerModal: document.getElementById('career-modal'),
+            modalClose: document.getElementById('modal-close'),
+            careerList: document.getElementById('career-list'),
+            rightPane: document.getElementById('right-pane'),
+            body: document.body
+        };
+
+        // ===== INITIALIZATION =====
+        function init() {
+            // Apply saved preferences
+            if (state.darkMode) {
+                dom.body.classList.add('dark-mode');
+                dom.darkModeToggle.classList.add('active');
+            }
+            
+            // Set initial states
+            dom.virtualHumanToggle.classList.add('active');
+            dom.ttsToggle.classList.add('active');
+            
+            // Set up character counter
+            updateCharCounter();
+            
+            // Initialize virtual human animation
+            animateVirtualHuman();
+            
+            // Set up career tracks modal
+            renderCareerTracks();
+            
+            // Set up authentication state
+            updateAuthState();
+            
+            // Set up mobile right pane toggle
+            setupMobileBehavior();
+            
+            // Demo speaking animation
+            setTimeout(() => {
+                speakText("Welcome to PMERIT! I'm Alex, your virtual learning assistant. I'm here to guide your educational journey with personalized support.");
+            }, 1500);
         }
-    }
-    function setupEventListeners() {
-        darkModeToggle.addEventListener('click', () => {
-            darkMode = !darkMode;
-            localStorage.setItem('darkMode', darkMode);
-            document.body.classList.toggle('dark-mode', darkMode);
-            darkModeToggle.classList.toggle('active', darkMode);
+
+        // ===== UTILITY FUNCTIONS =====
+        function updateCharCounter() {
+            dom.charCounter.textContent = `${dom.chatInput.value.length}/500`;
+        }
+
+        function updateAuthState() {
+            if (state.isAuthenticated) {
+                dom.dashboardBtn.classList.remove('guest');
+                dom.dashboardBtn.textContent = 'Go to Dashboard';
+                dom.dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Go to Dashboard';
+            } else {
+                dom.dashboardBtn.classList.add('guest');
+                dom.dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
+            }
+        }
+
+        function renderCareerTracks() {
+            dom.careerList.innerHTML = '';
+            state.careerTracks.forEach(track => {
+                const card = document.createElement('div');
+                card.className = 'career-card';
+                card.innerHTML = `
+                    <h4><i class="fas fa-road"></i> ${track.split(' (')[0]}</h4>
+                    <p>${track.includes('(') ? track.split('(')[1].replace(')', '') : 'Professional career track'}</p>
+                `;
+                card.addEventListener('click', () => {
+                    dom.chatInput.value = `Tell me more about ${track}`;
+                    updateCharCounter();
+                    dom.careerModal.classList.remove('active');
+                });
+                dom.careerList.appendChild(card);
+            });
+        }
+
+        function setupMobileBehavior() {
+            if (window.innerWidth <= 1100) {
+                dom.rightPane.classList.remove('active');
+                // Add mobile toggle button in header
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'nav-btn start-btn';
+                toggleBtn.id = 'mobile-toggle';
+                toggleBtn.innerHTML = '<i class="fas fa-chart-bar"></i> Assessments';
+                toggleBtn.addEventListener('click', () => {
+                    dom.rightPane.classList.toggle('active');
+                });
+                document.querySelector('nav').appendChild(toggleBtn);
+            }
+        }
+
+        // ===== TOGGLE FUNCTIONS =====
+        function toggleMode(btn, mode) {
+            btn.classList.toggle('active');
+            const isActive = btn.classList.contains('active');
+            
+            // Update UI indicators
+            if (mode === 'virtualHuman') {
+                state.virtualHumanMode = isActive;
+                dom.virtualHumanIndicator.style.display = isActive ? 'flex' : 'none';
+                dom.avatarContainer.classList.toggle('hidden', !isActive);
+            } 
+            else if (mode === 'customerService') {
+                state.customerServiceMode = isActive;
+                dom.customerServiceIndicator.style.display = isActive ? 'flex' : 'none';
+                if (isActive) {
+                    dom.chatHeaderTitle.innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
+                    dom.chatHeaderTagline.textContent = 'How can I assist you today? Please describe your issue or question.';
+                } else {
+                    dom.chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI - ' + state.currentHuman;
+                    dom.chatHeaderTagline.textContent = 'Empowering Learning Through Innovation. Accessible, high-quality education for global opportunities.';
+                }
+            } 
+            else if (mode === 'darkMode') {
+                state.darkMode = isActive;
+                localStorage.setItem('darkMode', isActive);
+                dom.body.classList.toggle('dark-mode', isActive);
+            } 
+            else if (mode === 'tts') {
+                state.ttsEnabled = isActive;
+            }
+        }
+
+        // ===== VIRTUAL HUMAN FUNCTIONS =====
+        function setExpression(expression) {
+            state.currentExpression = expression;
+            
+            // Update UI
+            dom.expressionButtons.forEach(btn => {
+                if (btn.dataset.expression === expression) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Change mouth shape
+            switch(expression) {
+                case 'happy':
+                    dom.mouthElement.style.height = '12px';
+                    dom.mouthElement.style.borderRadius = '10px 10px 20px 20px';
+                    break;
+                case 'serious':
+                    dom.mouthElement.style.height = '4px';
+                    dom.mouthElement.style.borderRadius = '0';
+                    break;
+                default: // neutral
+                    dom.mouthElement.style.height = '8px';
+                    dom.mouthElement.style.borderRadius = '0 0 15px 15px';
+            }
+        }
+
+        function changeVirtualHuman(name) {
+            state.currentHuman = name;
+            document.querySelector('.chat-header h2').innerHTML = 
+                `<i class="fas fa-robot"></i> PMERIT AI - ${name}`;
+        }
+
+        function animateVirtualHuman() {
+            // Start subtle breathing animation
+            const human = document.querySelector('.virtual-human');
+            let scale = 1;
+            let direction = -0.001;
+            
+            setInterval(() => {
+                scale += direction;
+                if (scale > 1.005) direction = -0.001;
+                if (scale < 0.995) direction = 0.001;
+                human.style.transform = `scale(${scale})`;
+            }, 50);
+        }
+
+        function startSpeaking() {
+            if (state.isSpeaking) return;
+            state.isSpeaking = true;
+            dom.mouthElement.style.animation = 'speak 0.3s infinite';
+        }
+
+        function stopSpeaking() {
+            state.isSpeaking = false;
+            dom.mouthElement.style.animation = 'none';
+            setExpression(state.currentExpression);
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window && state.ttsEnabled) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.95;
+                utterance.pitch = 1.1;
+                utterance.volume = 1;
+                
+                startSpeaking();
+                
+                utterance.onstart = () => {
+                    // Additional animation could go here
+                };
+                
+                utterance.onend = () => {
+                    stopSpeaking();
+                };
+                
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ===== EVENT LISTENERS =====
+        // Mode toggles
+        dom.darkModeToggle.addEventListener('click', () => toggleMode(dom.darkModeToggle, 'darkMode'));
+        dom.virtualHumanToggle.addEventListener('click', () => toggleMode(dom.virtualHumanToggle, 'virtualHuman'));
+        dom.customerServiceToggle.addEventListener('click', () => toggleMode(dom.customerServiceToggle, 'customerService'));
+        dom.ttsToggle.addEventListener('click', () => toggleMode(dom.ttsToggle, 'tts'));
+        
+        // Dashboard button
+        dom.dashboardBtn.addEventListener('click', () => {
+            if (state.isAuthenticated) {
+                alert('Redirecting to your dashboard...');
+                // In a real app: window.location.href = 'dashboard.html';
+            } else {
+                alert('Please sign up to access your personalized dashboard!');
+                // Show sign up modal in a real implementation
+            }
         });
-        ttsToggle.addEventListener('click', () => {
-            ttsEnabled = !ttsEnabled;
-            localStorage.setItem('ttsEnabled', ttsEnabled);
-            ttsToggle.classList.toggle('active', ttsEnabled);
+        
+        // Career paths modal
+        dom.explorePathsBtn.addEventListener('click', () => {
+            dom.careerModal.classList.add('active');
         });
-        virtualHumanToggle.addEventListener('click', () => {
-            virtualHumanMode = !virtualHumanMode;
-            virtualHumanToggle.classList.toggle('active', virtualHumanMode);
+        
+        dom.modalClose.addEventListener('click', () => {
+            dom.careerModal.classList.remove('active');
         });
-        customerServiceToggle.addEventListener('click', () => {
-            customerServiceMode = !customerServiceMode;
-            customerServiceToggle.classList.toggle('active', customerServiceMode);
+        
+        // Input handling
+        dom.chatInput.addEventListener('input', updateCharCounter);
+        
+        // Authentication
+        dom.signinBtn.addEventListener('click', () => {
+            // Simulate authentication
+            const email = prompt('Enter your email:');
+            if (email) {
+                state.isAuthenticated = true;
+                localStorage.setItem('isAuthenticated', 'true');
+                updateAuthState();
+                alert(`Welcome back! You're now signed in as ${email}`);
+            }
         });
-        explorePathsBtn.addEventListener('click', () => alert(`Tracks: ${careerTracks.join(', ')}`));
-        dashboardBtn.addEventListener('click', () => {
-            if (isAuthenticated) alert('Redirecting to dashboard.html');
-            else alert('Sign up to access dashboard!');
+        
+        dom.startLearningBtn.addEventListener('click', () => {
+            alert('Starting your learning journey...');
+            // In a real app: begin onboarding process
         });
-        chatInput.addEventListener('input', updateCharCounter);
-        sendButton.addEventListener('click', handleSendMessage);
-        signinBtn.addEventListener('click', () => {
-            isAuthenticated = true;
-            updateAuthUI(isAuthenticated);
-            alert('Signed in!');
+        
+        // Expression buttons
+        dom.expressionButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setExpression(btn.dataset.expression);
+            });
         });
-        startLearningBtn.addEventListener('click', () => {
-            if (isAuthenticated) alert('Redirecting to dashboard...');
-            else alert('Sign up to start learning!');
+        
+        // Virtual human selection
+        dom.humanSelect.addEventListener('change', () => {
+            const humanName = dom.humanSelect.options[dom.humanSelect.selectedIndex].text;
+            changeVirtualHuman(humanName);
         });
-    }
-    function handleSendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
-        addMessage('user', message);
-        chatInput.value = '';
-        updateCharCounter();
-        setTimeout(() => {
-            const aiResponse = "Thanks for your message! How can we help you learn?";
-            addMessage('ai', aiResponse);
-        }, 800);
-    }
-    function addMessage(role, content) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${role}-message`;
-        messageDiv.innerHTML = `<div class="message-content"><strong>${role === 'ai' ? 'PMERIT AI' : 'You'}:</strong> ${content}</div>`;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+        
+        // Send message
+        dom.sendBtn.addEventListener('click', () => {
+            if (dom.chatInput.value.trim() !== '') {
+                // Simulate AI response
+                speakText("Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.");
+                
+                // Add user message to chat
+                const chatMessages = document.querySelector('.chat-messages');
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message';
+                userMessage.innerHTML = `
+                    <div class="ai-avatar" style="background: #4f46e5;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="ai-message-content">
+                        <h3>You</h3>
+                        <p>${dom.chatInput.value}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(userMessage);
+                
+                // Add AI response to chat
+                setTimeout(() => {
+                    const aiResponse = document.createElement('div');
+                    aiResponse.className = 'ai-message';
+                    aiResponse.innerHTML = `
+                        <div class="ai-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="ai-message-content">
+                            <h3>${state.currentHuman}</h3>
+                            <p>Based on your interest in remote careers, I recommend focusing on digital skills like programming, digital marketing, or data analysis. These are in high demand globally and offer excellent remote opportunities.</p>
+                            <p>Would you like me to suggest specific courses or learning paths in any of these areas?</p>
+                        </div>
+                    `;
+                    chatMessages.appendChild(aiResponse);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+                
+                // Clear input
+                dom.chatInput.value = '';
+                updateCharCounter();
+            }
+        });
+
+        // Initialize the application
+        init();
     </script>
 </body>
 </html>
