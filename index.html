@@ -44,6 +44,28 @@
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
+        body.dark-mode .sidebar-left .label,
+        body.dark-mode .sidebar-left .pane-header,
+        body.dark-mode .sidebar-right h3,
+        body.dark-mode .sidebar-right h4,
+        body.dark-mode .chat-input-wrapper input,
+        body.dark-mode .chat-footer .status-connected,
+        body.dark-mode .chat-footer .char-count,
+        body.dark-mode .footer-text {
+            color: var(--text-primary) !important;
+        }
+
+        body.dark-mode .chat-input input::placeholder {
+            color: var(--text-secondary) !important;
+        }
+        body.dark-mode .btn-pricing, body.dark-mode .btn-signin {
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        body.dark-mode .btn-pricing:hover, body.dark-mode .btn-signin:hover {
+            color: var(--text-primary);
+        }
+
         /* Global Reset (from main.css) */
         * {
             margin: 0;
@@ -57,12 +79,13 @@
             background: var(--background-gradient);
             background-attachment: fixed;
             overflow: hidden; /* Non-scrollable feature like Google Home page */
+            display: flex;
+            flex-direction: column;
         }
         
         /* App Container (from main.css) */
         .app-container {
-            height: 100vh;
-            width: 100vw;
+            flex: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -476,6 +499,8 @@
             margin-bottom: 1rem;
             transition: all 0.2s ease;
             cursor: pointer;
+            min-height: 120px; /* Adjust card height to fit without overflow */
+            flex-shrink: 0;
         }
 
         .assessment-card:hover {
@@ -513,6 +538,31 @@
         .assessment-btn:hover {
             background: var(--secondary-purple);
             transform: translateY(-1px);
+        }
+
+        .footer {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+        }
+        
+        .footer-links {
+            margin-top: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--primary-purple);
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
         }
 
         /* Mobile-First Responsive Design (from responsive.css) */
@@ -791,6 +841,18 @@
                 </div>
             </aside>
         </main>
+        
+        <footer class="footer">
+            <div class="footer-text">
+                &copy; 2025 PMERIT. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#">Contact</a>
+                <a href="#">Partnerships</a>
+                <a href="#">Support</a>
+                <a href="#">Privacy Statement & Terms</a>
+            </div>
+        </footer>
     </div>
     
     <script>
