@@ -41,7 +41,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* Make page non-scrollable like Google Home page */
+            overflow: hidden;
         }
 
         /* Header Styles */
@@ -118,13 +118,17 @@
             margin: 1rem auto;
             width: 100%;
             padding: 0 1rem;
-            height: calc(100vh - 80px); /* Adjust height for non-scrollable page */
+            height: calc(100vh - 80px);
         }
-
-        .left-pane {
-            width: 260px;
+        
+        .pane {
             background-color: var(--secondary-bg);
             padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .left-pane {
+            width: 260px;
             display: flex;
             flex-direction: column;
             gap: 1rem;
@@ -140,18 +144,16 @@
             flex-direction: column;
             gap: 1.5rem;
             max-width: 800px;
-            background-color: var(--secondary-bg);
         }
 
         .right-pane {
             width: 320px;
             padding: 2rem 1.5rem;
-            background-color: var(--secondary-bg);
             border-left: 1px solid var(--border-color);
             border-radius: 0 12px 12px 0;
             height: 100%;
         }
-
+        
         /* Left Pane Styles */
         .pane-header {
             font-weight: 600;
@@ -199,6 +201,7 @@
             cursor: pointer;
             transition: var(--transition);
             width: 100%;
+            min-height: 44px; /* Touch target size */
         }
 
         .toggle-btn.active {
@@ -277,24 +280,22 @@
             left: 0;
         }
 
-        .avatar-container {
-            margin-top: auto;
+        .virtual-human-area {
             display: flex;
             justify-content: center;
             padding: 1rem 0;
+            margin-top: auto;
         }
-
-        .avatar {
+        
+        .virtual-human-avatar {
             width: 120px;
             height: 120px;
-            border-radius: 50%;
             background: linear-gradient(135deg, var(--global-color), var(--local-color));
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3rem;
-            border: 3px solid var(--border-color);
         }
 
         /* Center Pane Styles */
@@ -306,25 +307,8 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            position: relative;
-            z-index: 1; /* Ensure chat is above other elements */
         }
-        
-        .chat-container::before {
-            content: "Empowering Learning Through Innovation..."; /* Add tagline here */
-            position: absolute;
-            top: 2rem; /* Position tagline */
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-color);
-            opacity: 0.1;
-            white-space: nowrap; /* Prevent line breaks */
-            pointer-events: none; /* Make it unclickable */
-            z-index: 0; /* Keep it behind the chat content */
-        }
-        
+
         .chat-header {
             padding: 1.5rem;
             border-bottom: 1px solid var(--border-color);
@@ -332,65 +316,15 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            position: relative;
-            z-index: 10;
         }
-
-        .virtual-human-container {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: #e2e8f0;
-            border: 2px solid var(--global-color);
-            flex-shrink: 0;
-        }
-
-        .virtual-human {
-            width: 100%;
-            height: 100%;
+        
+        .chat-title {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            animation: breathe 3s infinite ease-in-out;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        .face {
-            position: relative;
-            width: 60px;
-            height: 60px;
-        }
-
-        .eyes {
-            position: absolute;
-            top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .eye {
-            width: 12px;
-            height: 12px;
-            background: #1e293b;
-            border-radius: 50%;
-        }
-
-        .mouth {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 25px;
-            height: 10px;
-            background: #1e293b;
-            border-radius: 0 0 15px 15px;
-            transition: all 0.3s ease;
-        }
-
-        .chat-header h2 {
+        .chat-title h2 {
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -398,10 +332,23 @@
             margin-bottom: 0.5rem;
         }
 
-        .chat-header p {
+        .chat-title p {
             color: var(--text-color);
             opacity: 0.8;
             font-size: 0.95rem;
+        }
+        
+        .ai-avatar-placeholder {
+            min-width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--global-color), var(--local-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            flex-shrink: 0;
         }
 
         .indicators {
@@ -444,11 +391,11 @@
             align-items: flex-start;
         }
 
-        .ai-avatar {
+        .user-avatar {
             min-width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--global-color), var(--local-color));
+            background: #4f46e5;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -456,27 +403,27 @@
             font-size: 1.2rem;
             flex-shrink: 0;
         }
-
+        
         .ai-message-content {
             flex: 1;
         }
 
-        .ai-message h3 {
+        .ai-message-content h3 {
             margin-bottom: 0.5rem;
             color: var(--global-color);
         }
 
-        .ai-message p {
+        .ai-message-content p {
             line-height: 1.6;
             margin-bottom: 1rem;
         }
 
-        .ai-message ul, .ai-message ol {
+        .ai-message-content ul, .ai-message-content ol {
             margin: 1rem 0;
             padding-left: 1.5rem;
         }
 
-        .ai-message li {
+        .ai-message-content li {
             margin-bottom: 0.5rem;
         }
 
@@ -607,17 +554,13 @@
         .cta-btn:hover {
             background-color: #1d4ed8;
         }
-        
-        .human-controls {
-            display: none; /* Hide for now */
-        }
 
-        /* Mobile Responsiveness */
+        /* Responsive/Mobile Behavior */
         @media (max-width: 1100px) {
             .main-container {
                 flex-direction: column;
                 height: auto;
-                overflow: auto; /* Allow scrolling on smaller devices */
+                overflow: auto;
             }
             
             .left-pane, .right-pane {
@@ -639,7 +582,7 @@
                 min-width: 200px;
             }
             
-            .avatar-container, .human-controls {
+            .virtual-human-area {
                 display: none;
             }
             
@@ -650,7 +593,7 @@
             
             .right-pane {
                 order: 3;
-                display: none; /* Hide by default on mobile */
+                display: none;
                 border-radius: 0 0 12px 12px;
             }
             
@@ -664,6 +607,10 @@
                 flex: 1;
                 min-width: 280px;
             }
+        }
+        
+        .mobile-pane-toggle {
+            display: none;
         }
 
         @media (max-width: 768px) {
@@ -683,22 +630,41 @@
                 justify-content: center;
             }
             
-            .left-pane {
-                padding: 1rem;
+            .left-pane, .right-pane {
+                display: none;
             }
             
-            .center-pane, .right-pane {
-                padding: 1.5rem;
+            .mobile-pane-toggle {
+                display: block;
+                position: fixed;
+                bottom: 1rem;
+                left: 1rem;
+                z-index: 101;
+                background-color: var(--global-color);
+                color: white;
+                border: none;
+                padding: 0.8rem;
+                border-radius: 50%;
+                box-shadow: var(--shadow);
+                min-height: 44px;
+                min-width: 44px;
             }
             
-            .control-row {
-                flex-direction: column;
-                gap: 0.5rem;
+            .left-pane.visible, .right-pane.visible {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 100;
+                background-color: var(--secondary-bg);
+                padding-top: 5rem;
+                overflow-y: auto;
             }
             
-            .virtual-human-container {
-                width: 60px;
-                height: 60px;
+            .left-pane.visible .avatar-container {
+                display: flex;
             }
         }
     </style>
@@ -764,29 +730,20 @@
                 </button>
             </div>
             
-            <div class="avatar-container">
-                <div class="avatar">
-                    <i class="fas fa-user"></i>
-                </div>
+            <div class="virtual-human-area">
+                <div class="virtual-human-avatar">
+                    </div>
             </div>
         </aside>
 
-        <main class="center-pane">
+        <main class="center-pane pane">
             <div class="chat-container">
                 <div class="chat-header">
-                    <div class="virtual-human-container">
-                        <div class="virtual-human">
-                            <div class="face">
-                                <div class="eyes">
-                                    <div class="eye"></div>
-                                    <div class="eye"></div>
-                                </div>
-                                <div class="mouth"></div>
-                            </div>
-                        </div>
+                    <div class="ai-avatar-placeholder">
+                        <i class="fas fa-robot"></i>
                     </div>
-                    <div>
-                        <h2><i class="fas fa-robot"></i> PMERIT AI</h2>
+                    <div class="chat-title">
+                        <h2>PMERIT AI</h2>
                         <p>Empowering Learning Through Innovation...</p>
                         <div class="indicators">
                             <div class="badge active" id="virtual-human-indicator">
@@ -801,7 +758,7 @@
                 
                 <div class="chat-messages">
                     <div class="ai-message">
-                        <div class="ai-avatar">
+                        <div class="ai-avatar-placeholder user-avatar">
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
@@ -819,7 +776,7 @@
                     </div>
                     
                     <div class="ai-message">
-                        <div class="ai-avatar">
+                        <div class="ai-avatar-placeholder user-avatar">
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
@@ -845,7 +802,7 @@
             </div>
         </main>
 
-        <aside class="right-pane">
+        <aside class="right-pane pane">
             <h3>Discover Your Path</h3>
             <div class="card">
                 <h4><i class="fas fa-graduation-cap"></i> Learning Style Assessment</h4>
@@ -864,6 +821,8 @@
             </div>
         </aside>
     </div>
+    
+    <button class="mobile-pane-toggle" id="mobile-menu-toggle"><i class="fas fa-bars"></i></button>
 
     <script>
         // DOM Elements
@@ -880,9 +839,13 @@
         const signinBtn = document.getElementById('signin-btn');
         const startLearningBtn = document.getElementById('start-learning-btn');
         const donateLink = document.getElementById('donate-link');
-        const chatHeaderTitle = document.querySelector('.chat-header h2');
-        const chatHeaderTagline = document.querySelector('.chat-header p');
+        const chatHeaderTitle = document.querySelector('.chat-title h2');
+        const chatHeaderTagline = document.querySelector('.chat-title p');
         const chatMessages = document.querySelector('.chat-messages');
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const leftPane = document.querySelector('.left-pane');
+        const rightPane = document.querySelector('.right-pane');
+        const virtualHumanArea = document.querySelector('.virtual-human-area');
 
         // State Management
         let isAuthenticated = false; // Simulated authentication state
@@ -890,7 +853,7 @@
         let virtualHumanMode = true;
         let customerServiceMode = false;
         let ttsEnabled = localStorage.getItem('ttsEnabled') === 'true';
-
+        
         // Career Track data for MVP
         const careerTracks = [
             "Software Development (Full-stack)",
@@ -902,7 +865,7 @@
             "Cloud & DevOps (Intro)"
         ];
 
-        // Initialize UI based on saved state
+        // Initialize UI based on saved state and template
         function initUI() {
             // Apply dark mode if enabled
             if (darkMode) {
@@ -914,9 +877,11 @@
             if (virtualHumanMode) {
                 virtualHumanToggle.classList.add('active');
                 virtualHumanIndicator.style.display = 'inline-flex';
+                virtualHumanArea.style.display = 'flex';
             } else {
                 virtualHumanToggle.classList.remove('active');
                 virtualHumanIndicator.style.display = 'none';
+                virtualHumanArea.style.display = 'none';
             }
 
             if (ttsEnabled) {
@@ -940,7 +905,6 @@
             if (isAuth) {
                 dashboardBtn.classList.remove('guest');
                 dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
-                // Hide other guest-only elements if needed (not in current requirements)
             } else {
                 dashboardBtn.classList.add('guest');
                 dashboardBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
@@ -974,14 +938,31 @@
             }
             if (mode === 'virtualHuman') {
                 virtualHumanMode = isActive;
+                virtualHumanArea.style.display = isActive ? 'flex' : 'none';
+                if (isActive) {
+                     customerServiceToggle.classList.remove('active');
+                     customerServiceMode = false;
+                     customerServiceIndicator.style.display = 'none';
+                     chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI';
+                     chatInput.placeholder = "Ask about courses, learning paths, or your goals...";
+                }
             }
             if (mode === 'customerService') {
                 customerServiceMode = isActive;
                 if (isActive) {
+                    virtualHumanToggle.classList.remove('active');
+                    virtualHumanMode = false;
+                    virtualHumanIndicator.style.display = 'none';
+                    virtualHumanArea.style.display = 'none';
+
                     chatHeaderTitle.innerHTML = '<i class="fas fa-headset"></i> Support Assistant';
-                    // Update placeholder text
                     chatInput.placeholder = "How can I assist you today? Please describe your issue or question.";
                 } else {
+                    virtualHumanToggle.classList.add('active');
+                    virtualHumanMode = true;
+                    virtualHumanIndicator.style.display = 'inline-flex';
+                    virtualHumanArea.style.display = 'flex';
+                    
                     chatHeaderTitle.innerHTML = '<i class="fas fa-robot"></i> PMERIT AI';
                     chatInput.placeholder = "Ask about courses, learning paths, or your goals...";
                 }
@@ -995,10 +976,8 @@
         // Dashboard button behavior
         function handleDashboardClick() {
             if (isAuthenticated) {
-                // For a real application, this would redirect
                 alert('Redirecting to dashboard.html');
             } else {
-                // For a real application, this would show a modal or redirect
                 alert('Please sign up to access your dashboard!');
             }
         }
@@ -1010,9 +989,20 @@
                 speechSynthesis.speak(utterance);
             } else if (!('speechSynthesis' in window)) {
                 console.log('Web Speech API is not supported in this browser.');
-                // Placeholder message for unsupported browsers
             }
         }
+        
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', () => {
+            const isLeftVisible = leftPane.classList.toggle('visible');
+            const isRightVisible = rightPane.classList.toggle('visible');
+            
+            if (isLeftVisible || isRightVisible) {
+                mobileMenuToggle.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
 
         // Event Listeners
         darkModeToggle.addEventListener('click', () => toggleMode(darkModeToggle, 'darkMode'));
@@ -1023,7 +1013,6 @@
         dashboardBtn.addEventListener('click', handleDashboardClick);
         
         explorePathsBtn.addEventListener('click', () => {
-            // Placeholder for opening a modal with career tracks
             alert(`Career tracks available (MVP): ${careerTracks.join(', ')}`);
         });
         
@@ -1037,18 +1026,15 @@
             alert('Starting learning journey...');
         });
 
-        // Add event listener for the "Send" button
         const sendBtn = document.querySelector('.send-btn');
         sendBtn.addEventListener('click', () => {
             if (chatInput.value.trim() !== '') {
-                // Simulate sending a message and getting a response
                 const userMessageText = chatInput.value;
                 
-                // Append user message to chat window
                 const userMessageDiv = document.createElement('div');
                 userMessageDiv.className = 'ai-message';
                 userMessageDiv.innerHTML = `
-                    <div class="ai-avatar" style="background: #4f46e5;">
+                    <div class="user-avatar">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="ai-message-content">
@@ -1058,14 +1044,13 @@
                 `;
                 chatMessages.appendChild(userMessageDiv);
 
-                // Simulate AI response
                 setTimeout(() => {
                     const aiResponseText = "Thank you for your message. I am currently in a demo state. This is where a personalized response would appear based on your query.";
                     
                     const aiMessageDiv = document.createElement('div');
                     aiMessageDiv.className = 'ai-message';
                     aiMessageDiv.innerHTML = `
-                        <div class="ai-avatar">
+                        <div class="ai-avatar-placeholder user-avatar">
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="ai-message-content">
@@ -1075,20 +1060,16 @@
                     `;
                     chatMessages.appendChild(aiMessageDiv);
                     
-                    // Read the AI response aloud
                     speakText(aiResponseText);
                     
-                    // Scroll to the bottom of the chat window
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 }, 1000);
                 
-                // Clear the input field and reset the counter
                 chatInput.value = '';
                 updateCharCounter();
             }
         });
 
-        // Initialize the UI
         initUI();
     </script>
 </body>
